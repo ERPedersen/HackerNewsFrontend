@@ -45,3 +45,6 @@ deploy:
   application: LSDDemoApplication
   deployment_group: LSDDemoFleet-fqa7sfz
   region: eu-central-1
+  branches:
+    only:
+        - development
