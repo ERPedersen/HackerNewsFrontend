@@ -1,4 +1,5 @@
 # Hackernews
+[![Build Status](https://travis-ci.org/ERPedersen/HackerNewsFrontend.svg?branch=development)](https://travis-ci.org/ERPedersen/HackerNewsFrontend)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.2.
 
