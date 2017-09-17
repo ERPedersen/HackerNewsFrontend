@@ -1,5 +1,14 @@
 #!/bin/bash
 yum install -y httpd
+
+# Install Node JS
+curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
+yum -y install nodejs
+
+# Install Node Dependencies
+cd /var/www/html
 npm install -g @angular/cli
 npm install
+
+# Build production
 ng build --prod --aot=false
