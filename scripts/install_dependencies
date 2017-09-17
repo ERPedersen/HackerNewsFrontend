@@ -1,3 +1,5 @@
 #!/bin/bash
 yum install -y httpd
-
+npm install -g @angular/cli
+npm install
+ng build --prod --aot=false
