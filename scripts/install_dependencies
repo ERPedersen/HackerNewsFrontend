@@ -7,8 +7,9 @@ yum -y install nodejs
 
 # Install Node Dependencies
 cd /var/www/html
-npm install -g @angular/cli
+sudo npm install -g @angular/cli
 npm install
+npm update
 
 # Build production
 ng build --prod --aot=false
