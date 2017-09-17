@@ -38,6 +38,7 @@ notifications:
     on_success: change
     
 deploy:
+  provider: s3
   provider: codedeploy
   wait-until-deployed: true
   access_key_id: 'AKIAJ4VMDB2COFFJJHXA'
@@ -47,4 +48,4 @@ deploy:
   deployment_group: LSDDemoFleet-fqa7sfz
   region: eu-central-1
   on:
-    branch: master
+    all_branches: true
