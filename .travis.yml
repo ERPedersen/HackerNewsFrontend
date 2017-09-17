@@ -1,5 +1,6 @@
 os:
   - linux
+  
 services:
   - docker
 
@@ -27,8 +28,8 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-  - ng build --prod
-  - ng test --code-coverage --watch false --log-level verbose
+  - ng build --prod --aot=false
+  - ng test --watch false --log-level verbose
   - ng e2e
 
 notifications:
