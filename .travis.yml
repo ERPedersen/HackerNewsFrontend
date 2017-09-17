@@ -1,5 +1,6 @@
 os:
   - linux
+  
 services:
   - docker
 
@@ -28,7 +29,7 @@ before_script:
 
 script:
   - ng build --prod
-  - ng test --code-coverage --watch false --log-level verbose
+  - ng test --watch false --log-level verbose
   - ng e2e
 
 notifications:
