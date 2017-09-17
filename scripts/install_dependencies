@@ -5,11 +5,12 @@ yum install -y httpd
 curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 yum -y install nodejs
 
-# Install Node Dependencies
+echo "Installing dependencies"
 cd /var/www/html
-sudo npm install -g @angular/cli
 npm install
-npm update
 
-# Build production
+echo "Installing Angular CLI"
+npm install -g @angular/cli
+
+echo "Building"
 ng build --prod --aot=false
