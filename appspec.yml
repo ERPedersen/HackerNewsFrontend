@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: ~/deployment_folder
+    destination: /home/ec2-user/deployment_folder
 hooks:
   BeforeInstall:
     - location: scripts/install_apache

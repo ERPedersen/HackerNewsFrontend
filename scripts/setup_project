@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd ~/deployment_folder
+cd /home/ec2-user/deployment_folder
 npm install
 npm install -g @angular/cli
 ng build --prod --aot=false
-cp -a ./dist/. /var/www/html
+cp -a /home/ec2-user/deployment_folder/dist/. /var/www/html
