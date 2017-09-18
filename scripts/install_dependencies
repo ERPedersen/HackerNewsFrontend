@@ -6,14 +6,13 @@ yum -y install nodejs
 
 source /home/ec2-user/.bash_profile
 
-cd /var/www/html
+cd /deployment_folder
 
 npm install
-
-source /home/ec2-user/.bash_profile
-
 npm install -g @angular/cli
 
 source /home/ec2-user/.bash_profile
 
 ng build --prod --aot=false
+
+cp -a /deployment_folder/dist/. /var/www/html/
