@@ -3,5 +3,5 @@
 cd ~/deployment_folder
 npm install
 npm install -g @angular/cli
-ng run --prod --aot=false
+ng build --prod --aot=false
 cp -a ./dist/. /var/www/html
