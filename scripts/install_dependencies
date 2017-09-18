@@ -1,22 +1,19 @@
 #!/bin/bash
 yum install -y httpd
 
-# Install Node JS
 curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 yum -y install nodejs
 
-echo "Installing dependencies"
-echo $PWD
+source /home/ec2-user/.bash_profile
+
 cd /var/www/html
-echo $PWD
+
 npm install
-echo "DEPENDENCIES INSTALLED"
 
-echo "Installing Angular CLI"
-echo $PWD
+source /home/ec2-user/.bash_profile
+
 npm install -g @angular/cli
-echo "ANGULAR CLI INSTALLED"
 
-echo "Building"
-echo $PWD
+source /home/ec2-user/.bash_profile
+
 ng build --prod --aot=false
