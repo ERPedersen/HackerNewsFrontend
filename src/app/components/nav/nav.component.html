@@ -1,0 +1,32 @@
+<div class="section-nav">
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" (click)="collapse()">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" routerLink="">Hacker News</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse" [ngClass]="collapsed ? 'collapse in' : ''">
+
+                <div class="navbar-left">
+                    <ul class="nav navbar-nav">
+                        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="">Home</a></li>
+                    </ul>
+                </div>
+
+                <div class="navbar-right">
+                    <p *ngIf="loggedIn" class="navbar-text">Welcome back</p>
+                    <ul class="nav navbar-nav">
+                        <li *ngIf="!loggedIn" routerLinkActive="active"><a routerLink="/login">Login</a></li>
+                        <li *ngIf="loggedIn" routerLinkActive="active"><a (click)="logout()">Logout</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+</div>
