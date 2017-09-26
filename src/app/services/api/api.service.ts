@@ -1,7 +1,9 @@
+import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {environment} from "../../../environments/environment";
+import {User} from '../../models/user';
 
 @Injectable()
 export class ApiService {
@@ -11,8 +13,16 @@ export class ApiService {
     constructor(private http: HttpClient, private auth: AuthService) {
     }
 
-    authenticate(email, password) {
-        this.http.post(this.apiUrl + '/login', {email, password}).subscribe((res) => this.auth.login(res));
+    authenticate(email, password): Observable<any> {
+        return this.http.post(this.apiUrl + '/login', {email, password});
+    }
+
+    getProfileData(token): Observable<any> {
+        let h: HttpHeaders = new HttpHeaders();
+        h.set('Authorization', 'Bearer ' + token);
+        console.log("HEADERS", h);
+
+        return this.http.get(this.apiUrl + '/profile', {headers: h});
     }
 
 }

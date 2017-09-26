@@ -1,3 +1,4 @@
+import { UserResolver } from './models/user.resolver';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
@@ -9,19 +10,21 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './pages/login/login.component';
 import {NotFoundComponent} from './pages/not-found/not-found.component';
 
-import {AuthService} from "./services/auth/auth.service";
-import {ApiService} from "./services/api/api.service";
-import {AuthInterceptor} from "./interceptors/auth-interceptor";
+import {AuthService} from './services/auth/auth.service';
+import {ApiService} from './services/api/api.service';
+// import {AuthInterceptor} from './interceptors/auth-interceptor';
 
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from "./guards/auth.guard";
+import {AuthGuard} from './guards/auth.guard';
+import {UserGuard} from './guards/user.guard';
 import {NavComponent} from './components/nav/nav.component';
 import {HomeComponent} from './pages/home/home.component';
 
 const appRoutes: Routes = [
-    {path: '', component: HomeComponent, pathMatch: 'full'},
-    {path: 'login', component: LoginComponent},
-    {path: '**', component: NotFoundComponent}
+    {path: '', component: HomeComponent, pathMatch: 'full', canActivate: [UserGuard]},
+    {path: 'restricted', component: LoginComponent, canActivate: [AuthGuard]},
+    {path: 'login', component: LoginComponent, canActivate: [UserGuard]},
+    {path: '**', component: NotFoundComponent, canActivate: [UserGuard]}
 ];
 
 @NgModule({
@@ -45,11 +48,13 @@ const appRoutes: Routes = [
         AuthService,
         ApiService,
         AuthGuard,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
-        }
+        UserGuard,
+        UserResolver,
+        // {
+        //     provide: HTTP_INTERCEPTORS,
+        //     useClass: AuthInterceptor,
+        //     multi: true
+        // }
     ],
     bootstrap: [AppComponent]
 })

@@ -18,6 +18,8 @@
                 <div class="form-group">
                     <button (click)="login()" type="button" class="btn btn-primary">Log in</button>
                 </div>
+
+                <div *ngIf="error !== null" class="alert alert-danger">{{error}}</div>
             </div>
         </div>
     </div>

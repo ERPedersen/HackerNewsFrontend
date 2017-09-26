@@ -19,10 +19,10 @@
                 </div>
 
                 <div class="navbar-right">
-                    <p *ngIf="loggedIn" class="navbar-text">Welcome back</p>
+                    <p *ngIf="user" class="navbar-text">Welcome back {{user.alias}}</p>
                     <ul class="nav navbar-nav">
-                        <li *ngIf="!loggedIn" routerLinkActive="active"><a routerLink="/login">Login</a></li>
-                        <li *ngIf="loggedIn" routerLinkActive="active"><a (click)="logout()">Logout</a></li>
+                        <li *ngIf="!user" routerLinkActive="active"><a routerLink="/login">Login</a></li>
+                        <li *ngIf="user" routerLinkActive="active"><a (click)="logout()">Logout</a></li>
                     </ul>
                 </div>
 

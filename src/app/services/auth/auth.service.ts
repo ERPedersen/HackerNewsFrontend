@@ -1,3 +1,4 @@
+import { User } from './../../models/user';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {Router} from "@angular/router";
@@ -5,34 +6,34 @@ import {Router} from "@angular/router";
 @Injectable()
 export class AuthService {
 
+    user: User;
     isLoggedIn: boolean = false;
     authenticated$: BehaviorSubject<any> = new BehaviorSubject(false);
 
     constructor(private router: Router) {
     }
 
-    public login(res): void {
-        localStorage.setItem('jwt', res.data);
-        this.isLoggedIn = true;
-        this.authenticated$.next(this.isLoggedIn);
-        this.router.navigate(['']);
+    public setToken(token): void {
+        localStorage.setItem('jwt', token);
     }
 
-    public logout(): void {
+    public removeToken(): void {
         localStorage.removeItem('jwt');
-        this.isLoggedIn = false;
-        this.authenticated$.next(this.isLoggedIn);
-        this.router.navigate(['']);
     }
 
     public getToken(): any {
-        let token = localStorage.getItem('jwt');
+        return localStorage.getItem('jwt');
+    }
 
-        if (token === null) {
-            this.isLoggedIn = false;
-            this.authenticated$.next(this.isLoggedIn);
-        }
+    public setUser(user: User): void {
+        this.user = user;
+    }
 
-        return token;
+    public getUser(): any {
+        return this.user;
+    }
+
+    public removeUser(): void {
+        this.user = null;
     }
 }

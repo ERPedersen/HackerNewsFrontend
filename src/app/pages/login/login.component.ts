@@ -13,26 +13,22 @@ export class LoginComponent implements OnInit {
 
     email: string;
     password: string;
-    subscription: Subscription;
+    error: string = null;
 
-    constructor(private apiService: ApiService, private authService: AuthService, private router: Router) {
-    }
+    constructor(private apiService: ApiService, private authService: AuthService, private router: Router) {}
 
-    ngOnInit() {
-        this.subscription = this.authService.authenticated$.subscribe((status) => this.onLoginChange(status));
-    }
+    ngOnInit() {}
 
     public login(): void {
-        console.log("TESt");
-        console.log(this.email);
-        this.apiService.authenticate(this.email, this.password);
-    }
+        this.error = null;
 
-    private onLoginChange(status): void
-    {
-        if (status) {
-            this.router.navigateByUrl('');
-        }
+        this.apiService.authenticate(this.email, this.password)
+        .subscribe((res) => {
+            this.authService.setToken(res.data);
+            this.router.navigate(['']);
+        }, (err) => {
+            console.error(err);
+            this.error = 'Username and password doesn\'t match';
+        });
     }
-
 }
