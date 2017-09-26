@@ -22,6 +22,7 @@ export class UserGuard implements CanActivate {
         .subscribe(
           user => {
             this.authService.setUser(user.data);
+            console.log(user.data.alias);
           },
           err => {
             console.log(err);
