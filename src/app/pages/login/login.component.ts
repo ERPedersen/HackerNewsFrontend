@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
     email: string;
     password: string;
     error: string = null;
+    loading: boolean;
 
     constructor(private apiService: ApiService, private authService: AuthService, private router: Router) {}
 
@@ -21,13 +22,14 @@ export class LoginComponent implements OnInit {
 
     public login(): void {
         this.error = null;
+        this.loading = true;
 
         this.apiService.authenticate(this.email, this.password)
         .subscribe((res) => {
             this.authService.setToken(res.data);
             this.router.navigate(['']);
         }, (err) => {
-            console.error(err);
+            this.loading = false;
             this.error = 'Username and password doesn\'t match';
         });
     }

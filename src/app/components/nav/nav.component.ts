@@ -1,8 +1,8 @@
-import { ApiService } from './../../services/api/api.service';
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Subscription} from "rxjs";
-import {AuthService} from "../../services/auth/auth.service";
-import {User} from "../../models/user";
+import {ApiService} from '../../services/api/api.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../services/auth/auth.service';
+import {User} from '../../models/user';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-nav',
@@ -11,13 +11,19 @@ import {User} from "../../models/user";
 })
 export class NavComponent implements OnInit {
 
-    collapsed: boolean = false;
+    collapsed: boolean;
     user: User = null;
 
-    constructor(private authService: AuthService, private apiService: ApiService) {
+    constructor(private authService: AuthService, private apiService: ApiService, private router: Router) {
     }
 
     ngOnInit() {
         this.user = this.authService.getUser();
+    }
+
+    logout() {
+        this.authService.removeToken();
+        this.authService.removeUser();
+        this.router.navigate(['/login']);
     }
 }
