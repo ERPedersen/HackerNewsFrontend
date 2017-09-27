@@ -16,6 +16,7 @@ import {NavComponent} from '../../components/nav/nav.component';
 import {NotFoundComponent} from '../not-found/not-found.component';
 import {AppComponent} from '../../app.component';
 import RouteConf from '../../routes';
+import {ValidationService} from "../../services/validation/validation.service";
 
 
 describe('LoginComponent', () => {
@@ -45,6 +46,7 @@ describe('LoginComponent', () => {
                 ApiService,
                 AuthGuard,
                 UserGuard,
+                ValidationService,
                 UserResolver,
                 {provide: APP_BASE_HREF, useValue: '/'}
             ]

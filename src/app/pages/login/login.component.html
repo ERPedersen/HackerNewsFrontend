@@ -12,15 +12,35 @@
                 <div *ngIf="error !== null" class="alert alert-danger">{{error}}</div>
 
                 <div class="form-group">
-                    <input type="email" placeholder="Email" (input)="email = $event.target.value" class="form-control">
+                    <input (input)="email.value = $event.target.value"
+                           (keyup.enter)="login()"
+                           (keyup)="validateEmailKeyUp()"
+                           (change)="validateEmail()"
+                           [ngClass]="!email.hasSuccess ? 'has-error' : ''"
+                           placeholder="Email"
+                           type="email"
+                           class="form-control">
+                    <span *ngIf="!email.hasSuccess" class="help-block has-error">Please provide a valid email</span>
                 </div>
                 <div class="form-group">
-                    <input type="password" title="Password" placeholder="Password" (input)="password = $event.target.value" class="form-control">
+                    <input (input)="password.value = $event.target.value"
+                           (keyup.enter)="login()"
+                           (keyup)="validatePasswordKeyUp()"
+                           (change)="validatePassword()"
+                           [ngClass]="!password.hasSuccess ? 'has-error' : ''"
+                           type="password"
+                           title="Password"
+                           placeholder="Password"
+                           class="form-control">
+                    <span *ngIf="!password.hasSuccess" class="help-block has-error">Please provide a password with a minimal length of 4 chars.</span>
                 </div>
                 <div class="form-group">
                     <button (click)="login()" [disabled]="loading" type="button" class="btn btn-primary">
                         <span *ngIf="!loading">Log in</span>
                         <span *ngIf="loading"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
+                    </button>
+                    <button [disabled]="true" type="button" class="btn btn-secondary">
+                        Sign up
                     </button>
                 </div>
 
