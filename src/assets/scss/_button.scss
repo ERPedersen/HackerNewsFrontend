@@ -1,0 +1,5 @@
+@import 'colors';
+
+.btn-secondary {
+  @include button-variant($color-white, $color-secondary, $color-secondary);
+}
