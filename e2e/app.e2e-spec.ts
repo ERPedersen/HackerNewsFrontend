@@ -7,8 +7,8 @@ describe('hackernews App', () => {
     page = new HackernewsPage();
   });
 
-  it('should display message saying Hackernews', () => {
+  it('should display title saying Hacker News', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Hackernews');
+    expect(page.getParagraphText()).toEqual('Hacker News');
   });
 });
