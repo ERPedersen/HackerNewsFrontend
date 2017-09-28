@@ -15,8 +15,10 @@ import {HomeComponent} from '../home/home.component';
 import {NavComponent} from '../../components/nav/nav.component';
 import {NotFoundComponent} from '../not-found/not-found.component';
 import {AppComponent} from '../../app.component';
-import RouteConf from '../../routes';
+import {RouteConf} from '../../routes';
 import {ValidationService} from "../../services/validation/validation.service";
+import {PostResolver} from "../../resolvers/post-resolver";
+import {MomentModule} from "angular2-moment";
 
 
 describe('LoginComponent', () => {
@@ -36,6 +38,7 @@ describe('LoginComponent', () => {
                 BrowserModule,
                 FormsModule,
                 HttpClientModule,
+                MomentModule,
                 RouterModule.forRoot(
                     RouteConf,
                     {enableTracing: true}
@@ -44,10 +47,11 @@ describe('LoginComponent', () => {
             providers: [
                 AuthService,
                 ApiService,
+                ValidationService,
                 AuthGuard,
                 UserGuard,
-                ValidationService,
                 UserResolver,
+                PostResolver,
                 {provide: APP_BASE_HREF, useValue: '/'}
             ]
         })

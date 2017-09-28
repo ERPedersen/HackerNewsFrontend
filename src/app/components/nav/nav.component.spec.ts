@@ -10,7 +10,14 @@ import {HomeComponent} from '../../pages/home/home.component';
 import {LoginComponent} from '../../pages/login/login.component';
 import {NotFoundComponent} from '../../pages/not-found/not-found.component';
 import {HttpClientModule} from '@angular/common/http';
-import RouteConf from '../../routes';
+import {RouteConf} from '../../routes';
+import {PostResolver} from "../../resolvers/post-resolver";
+import {UserResolver} from "../../models/user.resolver";
+import {UserGuard} from "../../guards/user.guard";
+import {AuthGuard} from "../../guards/auth.guard";
+import {MomentModule} from "angular2-moment";
+import {FormsModule} from "@angular/forms";
+import {BrowserModule} from "@angular/platform-browser";
 
 describe('NavComponent', () => {
     let component: NavComponent;
@@ -20,13 +27,16 @@ describe('NavComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 AppComponent,
+                LoginComponent,
+                NotFoundComponent,
                 NavComponent,
                 HomeComponent,
-                LoginComponent,
-                NotFoundComponent
             ],
             imports: [
+                BrowserModule,
+                FormsModule,
                 HttpClientModule,
+                MomentModule,
                 RouterModule.forRoot(
                     RouteConf,
                     {enableTracing: true}
@@ -35,6 +45,10 @@ describe('NavComponent', () => {
             providers: [
                 AuthService,
                 ApiService,
+                AuthGuard,
+                UserGuard,
+                UserResolver,
+                PostResolver,
                 {provide: APP_BASE_HREF, useValue: '/'}
             ]
         })
