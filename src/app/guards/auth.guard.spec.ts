@@ -14,7 +14,9 @@ import {RouterModule} from '@angular/router';
 import {UserGuard} from './user.guard';
 import {UserResolver} from '../models/user.resolver';
 import {APP_BASE_HREF} from '@angular/common';
-import RouteConf from '../routes';
+import {RouteConf} from '../routes';
+import {MomentModule} from "angular2-moment";
+import {PostResolver} from "../resolvers/post-resolver";
 
 describe('AuthGuard', () => {
     beforeEach(() => {
@@ -30,6 +32,7 @@ describe('AuthGuard', () => {
                 BrowserModule,
                 FormsModule,
                 HttpClientModule,
+                MomentModule,
                 RouterModule.forRoot(
                     RouteConf,
                     {enableTracing: true}
@@ -41,6 +44,7 @@ describe('AuthGuard', () => {
                 AuthGuard,
                 UserGuard,
                 UserResolver,
+                PostResolver,
                 {provide: APP_BASE_HREF, useValue: '/'}
             ]
         });

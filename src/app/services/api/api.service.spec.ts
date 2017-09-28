@@ -15,7 +15,9 @@ import {AuthGuard} from '../../guards/auth.guard';
 import {UserGuard} from '../../guards/user.guard';
 import {UserResolver} from '../../models/user.resolver';
 import {APP_BASE_HREF} from '@angular/common';
-import RouteConf from '../../routes';
+import {RouteConf} from '../../routes';
+import {PostResolver} from "../../resolvers/post-resolver";
+import {MomentModule} from "angular2-moment";
 
 describe('ApiService', () => {
     beforeEach(() => {
@@ -31,6 +33,7 @@ describe('ApiService', () => {
                 BrowserModule,
                 FormsModule,
                 HttpClientModule,
+                MomentModule,
                 RouterModule.forRoot(
                     RouteConf,
                     {enableTracing: true}
@@ -42,6 +45,7 @@ describe('ApiService', () => {
                 AuthGuard,
                 UserGuard,
                 UserResolver,
+                PostResolver,
                 {provide: APP_BASE_HREF, useValue: '/'}
             ]
         });

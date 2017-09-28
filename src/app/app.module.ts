@@ -18,13 +18,9 @@ import {UserGuard} from './guards/user.guard';
 import {NavComponent} from './components/nav/nav.component';
 import {HomeComponent} from './pages/home/home.component';
 import {ValidationService} from "./services/validation/validation.service";
-
-const appRoutes: Routes = [
-    {path: '', component: HomeComponent, pathMatch: 'full', canActivate: [UserGuard]},
-    {path: 'restricted', component: LoginComponent, canActivate: [AuthGuard]},
-    {path: 'login', component: LoginComponent, canActivate: [UserGuard]},
-    {path: '**', component: NotFoundComponent, canActivate: [UserGuard]}
-];
+import {PostResolver} from "./resolvers/post-resolver";
+import {RouteConf} from './routes';
+import {MomentModule} from "angular2-moment";
 
 @NgModule({
     declarations: [
@@ -38,8 +34,9 @@ const appRoutes: Routes = [
         BrowserModule,
         FormsModule,
         HttpClientModule,
+        MomentModule,
         RouterModule.forRoot(
-            appRoutes,
+            RouteConf,
             {enableTracing: true}
         )
     ],
@@ -50,6 +47,7 @@ const appRoutes: Routes = [
         AuthGuard,
         UserGuard,
         UserResolver,
+        PostResolver
         // {
         //     provide: HTTP_INTERCEPTORS,
         //     useClass: AuthInterceptor,
