@@ -16,6 +16,7 @@ import {UserGuard} from './guards/user.guard';
 import {PostResolver} from './resolvers/post-resolver';
 import {RouteConf} from './routes';
 import {APP_BASE_HREF} from "@angular/common";
+import {SignUpComponent} from "./pages/sign-up/sign-up.component";
 
 export const GlobalModules = {
     declarations: [
@@ -24,6 +25,7 @@ export const GlobalModules = {
         NotFoundComponent,
         NavComponent,
         HomeComponent,
+        SignUpComponent
     ],
     imports: [
         BrowserModule,
