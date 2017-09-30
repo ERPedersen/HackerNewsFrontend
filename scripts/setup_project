@@ -3,5 +3,6 @@
 cd /home/ec2-user/deployment_folder
 npm install
 npm install -g @angular/cli
+npm rebuild node-sass
 ng build --prod --aot=false
 cp -a /home/ec2-user/deployment_folder/dist/. /var/www/html
