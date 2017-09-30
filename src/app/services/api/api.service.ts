@@ -23,4 +23,8 @@ export class ApiService {
         return this.http.get(this.apiUrl + '/profile', {headers});
     }
 
+    getPosts(limit, page): Observable<any> {
+        return this.http.get(this.apiUrl + `/post?limit=10&page=${page}`);
+    }
+
 }
