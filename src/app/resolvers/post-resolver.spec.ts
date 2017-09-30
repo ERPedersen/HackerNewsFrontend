@@ -1,15 +1,15 @@
 import {TestBed, inject} from "@angular/core/testing";
-import {UserGuard} from "./user.guard";
+import {PostResolver} from "./post-resolver";
 import {GlobalModules} from "../module";
 
-describe('UserGuard', () => {
+describe('PostResolver', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             ...GlobalModules
         });
     });
 
-    it('should create', inject([UserGuard], (guard: UserGuard) => {
+    it('should create', inject([PostResolver], (guard: PostResolver) => {
         expect(guard).toBeTruthy();
     }));
 });
