@@ -1,0 +1,27 @@
+<div class="section-nav">
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" (click)="collapse()">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" routerLink="">Hacker News</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse" [ngClass]="collapsed ? 'collapse in' : ''">
+                <div class="navbar-right">
+                    <p *ngIf="user" class="navbar-text">
+                        <span class="user-karma">{{user.karma}}<i class="fa fa-diamond"></i></span>
+                    </p>
+                    <ul class="nav navbar-nav">
+                        <li *ngIf="!user" routerLinkActive="active"><a routerLink="/login">Login</a></li>
+                        <li *ngIf="user" routerLinkActive="active"><a href="#">{{user.alias}}</a></li>
+                        <li *ngIf="user" routerLinkActive="active"><a (click)="logout()"><i class="fa fa-fw fa-sign-out"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

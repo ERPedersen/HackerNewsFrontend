@@ -1,0 +1,32 @@
+@import "../../../assets/scss/app";
+
+.section-login {
+  margin-top: 15px;
+
+  @media screen and (min-width: $screen-sm) {
+
+  }
+}
+
+.form-control {
+  max-width: 300px;
+}
+
+.btn {
+  width: 148px;
+
+  @media screen and (max-width: 330px) {
+    width: calc(50% - 2px);
+  }
+}
+
+.has-error {
+  border-color: $brand-danger;
+}
+
+.help-block {
+  font-size: 12px;
+  margin-left: 2px;
+  color: $brand-danger;
+  max-width: 250px;
+}

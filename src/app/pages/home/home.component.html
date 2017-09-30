@@ -1,0 +1,29 @@
+<app-nav></app-nav>
+
+<div class="section-posts">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="posts" class="posts">
+                    <div class="post" *ngFor="let post of posts;">
+                        <h3>
+                            <a href="{{post.url}}" target="_blank">{{post.title}}</a>
+                            <small class="text-muted">({{post.domain}})</small>
+                        </h3>
+                        <ul class="post-meta">
+                            <li class="post-meta-item">
+                                <span class="karma">{{post.karma}}</span> <i class="fa fa-diamond"></i>
+                            </li>
+                            <li class="post-meta-item">
+                                Posted by <span class="author">{{post.author.alias}}</span>
+                            </li>
+                            <li class="post-meta-item">
+                                {{post.created_at | amUtc | amLocal | amTimeAgo}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
