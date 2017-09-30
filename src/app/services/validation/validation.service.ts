@@ -15,4 +15,8 @@ export class ValidationService {
         return password != null && password.length > 3;
     }
 
+    public validateAlias(alias): boolean {
+        return alias != null && alias.length > 3;
+    }
+
 }
