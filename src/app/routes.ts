@@ -4,6 +4,7 @@ import {LoginComponent} from './pages/login/login.component';
 import {AuthGuard} from './guards/auth.guard';
 import {HomeComponent} from './pages/home/home.component';
 import {PostResolver} from "./resolvers/post-resolver";
+import {SignUpComponent} from "./pages/sign-up/sign-up.component";
 
 export const RouteConf = [
     {
@@ -23,6 +24,11 @@ export const RouteConf = [
     {
         path: 'login',
         component: LoginComponent,
+        canActivate: [UserGuard]
+    },
+    {
+        path: 'sign-up',
+        component: SignUpComponent,
         canActivate: [UserGuard]
     },
     {

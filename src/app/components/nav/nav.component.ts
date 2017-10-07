@@ -24,6 +24,11 @@ export class NavComponent implements OnInit {
     logout() {
         this.authService.removeToken();
         this.authService.removeUser();
+        this.user = null;
         this.router.navigate(['/login']);
+    }
+
+    collapse() {
+        this.collapsed = !this.collapsed;
     }
 }
