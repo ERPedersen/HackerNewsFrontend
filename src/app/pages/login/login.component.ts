@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../../services/api/api.service";
-import {AuthService} from "../../services/auth/auth.service";
-import {Subscription} from "rxjs";
-import {Router} from "@angular/router";
-import {ValidationService} from "../../services/validation/validation.service";
+import {ApiService} from '../../services/api/api.service';
+import {UserService} from '../../services/user/user.service';
+import {Router} from '@angular/router';
+import {ValidationService} from '../../services/validation/validation.service';
+import {TokenService} from '../../services/token/token.service';
 
 @Component({
     selector: 'app-login',
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     };
 
     constructor(private apiService: ApiService,
-                private authService: AuthService,
+                private tokenService: TokenService,
                 private router: Router,
                 private validationService: ValidationService) {
     }
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
 
         this.apiService.authenticate(this.email.value, this.password.value)
             .subscribe((res) => {
-                this.authService.setToken(res.data);
+                this.tokenService.setToken(res.data);
                 this.router.navigate(['']);
             }, () => {
                 this.loading = false;

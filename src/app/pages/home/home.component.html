@@ -7,8 +7,9 @@
                 <div id="posts" class="posts">
                     <div class="post" *ngFor="let post of posts;">
                         <h3>
-                            <a href="{{post.url}}" target="_blank">{{post.title}}</a>
-                            <small class="text-muted">({{post.domain}})</small>
+                            <a *ngIf="post.url" href="{{post.url}}" target="_blank">{{post.title}}</a>
+                            <span *ngIf="post.content">{{post.title}}</span>
+                            <small *ngIf="post.domain" class="text-muted">({{post.domain}})</small>
                         </h3>
                         <ul class="post-meta">
                             <li class="post-meta-item">
@@ -18,7 +19,7 @@
                                 Posted by <span class="author">{{post.author.alias}}</span>
                             </li>
                             <li class="post-meta-item">
-                                {{post.created_at | amUtc | amLocal | amTimeAgo}}
+                                {{post.created_at | amUtc | amTimeAgo}}
                             </li>
                         </ul>
                     </div>

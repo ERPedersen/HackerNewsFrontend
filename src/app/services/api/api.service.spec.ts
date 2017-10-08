@@ -1,6 +1,6 @@
-import {TestBed, inject} from "@angular/core/testing";
-import {ApiService} from "./api.service";
-import {GlobalModules} from "../../module";
+import {TestBed, inject} from '@angular/core/testing';
+import {ApiService} from './api.service';
+import {GlobalModules} from '../../module';
 
 describe('ApiService', () => {
     beforeEach(() => {

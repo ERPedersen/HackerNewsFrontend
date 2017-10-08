@@ -1,23 +1,24 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {AuthService} from '../services/auth/auth.service';
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {UserService} from '../services/user/user.service';
 import {ApiService} from '../services/api/api.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/first';
+import 'rxjs/add/observable/of';
+import {TokenService} from '../services/token/token.service';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UserGuard implements CanActivate {
 
-    constructor(private authService: AuthService, private api: ApiService) {
+    constructor(private authService: UserService, private tokenService: TokenService, private api: ApiService) {
     }
 
     canActivate(next: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-        const token = this.authService.getToken();
+        const token = this.tokenService.getToken();
 
         if (token != null) {
             return this.api.getProfileData(token)
@@ -33,7 +34,7 @@ export class UserGuard implements CanActivate {
     }
 
     handleError() {
-        this.authService.removeToken();
+        this.tokenService.removeToken();
         this.authService.removeUser();
         return Observable.of(true);
     }
