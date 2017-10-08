@@ -1,10 +1,10 @@
-import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
-import {ApiService} from '../services/api/api.service';
+import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
+import {ApiService} from '../../services/api/api.service';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class PostResolver implements Resolve<any> {
+export class PostsResolver implements Resolve<any> {
 
     constructor(private apiService: ApiService) {
     }
