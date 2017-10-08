@@ -1,5 +1,5 @@
 import {ApiService} from './services/api/api.service';
-import {AuthService} from './services/auth/auth.service';
+import {UserService} from './services/user/user.service';
 import {RouterModule} from '@angular/router';
 import {MomentModule} from 'angular2-moment';
 import {HttpClientModule} from '@angular/common/http';
@@ -15,8 +15,9 @@ import {AuthGuard} from './guards/auth.guard';
 import {UserGuard} from './guards/user.guard';
 import {PostResolver} from './resolvers/post-resolver';
 import {RouteConf} from './routes';
-import {APP_BASE_HREF} from "@angular/common";
-import {SignUpComponent} from "./pages/sign-up/sign-up.component";
+import {APP_BASE_HREF} from '@angular/common';
+import {SignUpComponent} from './pages/sign-up/sign-up.component';
+import {TokenService} from './services/token/token.service';
 
 export const GlobalModules = {
     declarations: [
@@ -34,13 +35,14 @@ export const GlobalModules = {
         MomentModule,
         RouterModule.forRoot(
             RouteConf,
-            {enableTracing: true}
+            // {enableTracing: true}
         )
     ],
     providers: [
-        AuthService,
+        UserService,
         ApiService,
         ValidationService,
+        TokenService,
         AuthGuard,
         UserGuard,
         PostResolver,

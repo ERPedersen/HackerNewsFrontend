@@ -2,16 +2,15 @@ import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import {AuthService} from "../auth/auth.service";
-import {environment} from "../../../environments/environment";
-import {User} from '../../models/user';
+import {UserService} from '../user/user.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class ApiService {
 
     apiUrl = environment.apiUrl;
 
-    constructor(private http: HttpClient, private auth: AuthService) {
+    constructor(private http: HttpClient, private auth: UserService) {
     }
 
     authenticate(email, password): Observable<any> {

@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth/auth.service";
-import {ApiService} from "../../services/api/api.service";
-import {Router} from "@angular/router";
-import {SignUpUser} from "../../models/sign-up-user";
+import {UserService} from '../../services/user/user.service';
+import {ApiService} from '../../services/api/api.service';
+import {Router} from '@angular/router';
+import {SignUpUser} from '../../models/sign-up-user';
+import {TokenService} from '../../services/token/token.service';
 
 @Component({
     selector: 'app-sign-up',
@@ -17,12 +18,12 @@ export class SignUpComponent implements OnInit {
     user: SignUpUser;
 
     constructor(private apiService: ApiService,
-                private authService: AuthService,
+                private tokenService: TokenService,
                 private router: Router) {
     }
 
     ngOnInit() {
-        this.user = new SignUpUser(1, "", "", "");
+        this.user = new SignUpUser(1, '', '', '');
     }
 
     onSubmit() {
@@ -35,7 +36,7 @@ export class SignUpComponent implements OnInit {
     public signUp(): void {
         this.apiService.signUp(this.user.email, this.user.password, this.user.alias)
             .subscribe((res) => {
-                this.authService.setToken(res.data);
+                this.tokenService.setToken(res.data);
                 this.router.navigate(['']);
             }, (error) => {
                 this.loading = false;
