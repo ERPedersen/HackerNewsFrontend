@@ -1,0 +1,39 @@
+<app-nav></app-nav>
+
+<div class="section-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="page-header">
+                    <h1 *ngIf="post.url"><a href="{{post.url}}" target="_blank">{{post.title}}</a></h1>
+                    <h1 *ngIf="post.content"><a [routerLink]="['/post', post.slug]">{{post.title}}</a></h1>
+                    <ul class="post-meta">
+                        <li class="post-meta-item">
+                            <span class="karma">{{post.karma}}</span> <i class="fa fa-diamond"></i>
+                        </li>
+                        <li class="post-meta-item">
+                            Posted by <span class="author">{{post.author.alias}}</span>
+                        </li>
+                        <li class="post-meta-item">
+                            {{post.created_at | amUtc | amTimeAgo}}
+                        </li>
+                    </ul>
+                </div>
+
+                <div *ngIf="post.content" class="post-content">
+                    {{post.content}}
+                </div>
+
+                <div class="page-header">
+                    <h3>Comments ({{comments ? comments.length : 0}})</h3>
+                </div>
+
+                <div class="comments">
+                    <span class="text-muted">There are no comments for this post</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

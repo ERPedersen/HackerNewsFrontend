@@ -29,4 +29,8 @@ export class ApiService {
     getPosts(limit, page): Observable<any> {
         return this.http.get(this.apiUrl + `/post?limit=10&page=${page}`);
     }
+
+    getPost(slug: string): Observable<any> {
+        return this.http.get(this.apiUrl + `/post/${slug}`);
+    }
 }

@@ -1,6 +1,6 @@
 import {TestBed, inject} from '@angular/core/testing';
 import {PostResolver} from './post-resolver';
-import {GlobalModules} from '../module';
+import {GlobalModules} from '../../module';
 
 describe('PostResolver', () => {
     beforeEach(() => {

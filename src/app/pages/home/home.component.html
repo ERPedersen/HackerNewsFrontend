@@ -8,7 +8,7 @@
                     <div class="post" *ngFor="let post of posts;">
                         <h3>
                             <a *ngIf="post.url" href="{{post.url}}" target="_blank">{{post.title}}</a>
-                            <span *ngIf="post.content">{{post.title}}</span>
+                            <a *ngIf="post.content" [routerLink]="['/post', post.slug]">{{post.title}}</a>
                             <small *ngIf="post.domain" class="text-muted">({{post.domain}})</small>
                         </h3>
                         <ul class="post-meta">
@@ -20,6 +20,9 @@
                             </li>
                             <li class="post-meta-item">
                                 {{post.created_at | amUtc | amTimeAgo}}
+                            </li>
+                            <li class="post-meta-item">
+                                <a [routerLink]="['/post', post.slug]">Go to discussion</a>
                             </li>
                         </ul>
                     </div>
