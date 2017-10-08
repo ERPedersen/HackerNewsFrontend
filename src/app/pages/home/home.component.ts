@@ -1,7 +1,7 @@
 import {Component, OnInit, HostListener} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {ApiService} from "../../services/api/api.service";
+import {ActivatedRoute} from '@angular/router';
+import {ApiService} from '../../services/api/api.service';
+import {Post} from '../../models/post';
 
 @Component({
     selector: 'app-home',
@@ -10,7 +10,7 @@ import {ApiService} from "../../services/api/api.service";
 })
 export class HomeComponent implements OnInit {
 
-    posts;
+    posts: [Post];
     error;
     page;
     hasMore;
@@ -20,13 +20,13 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        let response = this.route.snapshot.data['posts'];
+        const response = this.route.snapshot.data['posts'];
 
-        if (typeof response != 'undefined') {
+        if (typeof response !== 'undefined') {
             if (response.code !== 0) {
                 this.error = response.message;
             } else if (response == null) {
-                this.error = "No posts were found.";
+                this.error = 'No posts were found.';
             } else if (response.data.posts.length > 0) {
                 this.posts = response.data.posts;
                 this.hasMore = response.data.has_more;
@@ -51,15 +51,16 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    @HostListener("window:scroll", ["$event"])
+    @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
-        let maxHeight = document.documentElement.scrollHeight;
-        let clientHeight = document.documentElement.scrollTop;
-        let scrollAmount = document.documentElement.clientHeight;
+        const maxHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.scrollTop;
+        const scrollAmount = document.documentElement.clientHeight;
 
         if (maxHeight - clientHeight - scrollAmount < 300) {
-            if (this.hasMore && !this.loading)
+            if (this.hasMore && !this.loading) {
                 this.loadMorePosts();
+            }
         }
     }
 }
