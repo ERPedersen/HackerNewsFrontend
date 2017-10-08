@@ -13,11 +13,13 @@ import {AppComponent} from './app.component';
 import {ValidationService} from './services/validation/validation.service';
 import {AuthGuard} from './guards/auth.guard';
 import {UserGuard} from './guards/user.guard';
-import {PostResolver} from './resolvers/post-resolver';
+import {PostsResolver} from './resolvers/posts/posts-resolver';
 import {RouteConf} from './routes';
 import {APP_BASE_HREF} from '@angular/common';
 import {SignUpComponent} from './pages/sign-up/sign-up.component';
 import {TokenService} from './services/token/token.service';
+import {PostComponent} from './pages/post/post.component';
+import {PostResolver} from './resolvers/post/post-resolver';
 
 export const GlobalModules = {
     declarations: [
@@ -26,7 +28,8 @@ export const GlobalModules = {
         NotFoundComponent,
         NavComponent,
         HomeComponent,
-        SignUpComponent
+        SignUpComponent,
+        PostComponent,
     ],
     imports: [
         BrowserModule,
@@ -45,6 +48,7 @@ export const GlobalModules = {
         TokenService,
         AuthGuard,
         UserGuard,
+        PostsResolver,
         PostResolver,
         {provide: APP_BASE_HREF, useValue: '/'}
     ]
