@@ -20,7 +20,7 @@ export class PostComponent implements OnInit {
     error: string = null;
     commentSuccess: boolean;
     commentField: CommentSubmission;
-    comments: Comment;
+    comments: Comment[] = new Array();
     user: User;
 
     constructor(private route: ActivatedRoute,
@@ -30,6 +30,7 @@ export class PostComponent implements OnInit {
     }
 
     ngOnInit() {
+
         const response = this.route.snapshot.data['post'];
         if (response) {
             if (response.data) {
@@ -65,6 +66,8 @@ export class PostComponent implements OnInit {
                 this.loading = false;
                 this.commentField.content = '';
                 this.commentSuccess = true;
+                this.comments.push(res.data.comment);
+                console.log(this.comments);
             }, (error) => {
                 this.loading = false;
                 this.commentSuccess = false;

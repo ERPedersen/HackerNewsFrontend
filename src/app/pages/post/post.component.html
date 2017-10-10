@@ -66,25 +66,6 @@
                 </div>
 
 
-                <form (ngSubmit)="onSubmit()" #postCommentForm="ngForm" class="form-content">
-                    <div class="form-fields">
-                        <div class="form-item">
-                            <div>
-                                <textarea rows="4" cols="50" [(ngModel)]="commentField.content" #content="ngModel" name="content" id="content" required autocomplete="off"></textarea>
-                            </div>
-                        </div>
-                        <div *ngIf="error !== null" class="alert alert-danger">
-                            {{error}}
-                        </div>
-                        <div>
-                            <button type="submit" class="btn btn-secondary">
-                                <span *ngIf="!loading">Post comment</span>
-                                <span *ngIf="loading"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
                 <div class="comments">
                     <span class="text-muted">There are no comments for this post. But you can be the first one to share your thoughts!</span>
                 </div>
