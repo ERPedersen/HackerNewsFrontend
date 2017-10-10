@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://api.hackernews.dev'
+  apiUrl: 'http://api.hackernews.emilrosenius.com'
 };
