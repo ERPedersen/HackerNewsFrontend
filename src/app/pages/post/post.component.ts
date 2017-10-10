@@ -24,25 +24,26 @@ export class PostComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private apiService: ApiService,
               private tokenService: TokenService,
-              private userService: UserService,
-              private router: Router) { }
+              private userService: UserService) { }
 
   ngOnInit() {
       const response = this.route.snapshot.data['post'];
-      if (response.data) {
-          this.post = response.data;
+      if (response) {
+         if (response.data) {
+            this.post = response.data;
+         }
       }
 
       const currentUser = this.userService.getUser();
-      if (currentUser != null) {
+      if (currentUser != null && this.post != null) {
           this.commentField = new CommentSubmission(currentUser.id, this.post.id, 0, '');
       } else {
-          this.commentField = new CommentSubmission(0, this.post.id, 0, '');
+          this.commentField = new CommentSubmission(0, 0, 0, '');
       }
   }
 
   onSubmit() {
-      if (this.commentField.user_ref !== 0) {
+      if (this.commentField.user_ref !== 0 && this.commentField.post_ref !== 0) {
           this.submitted = true;
           this.error = null;
           this.loading = true;
