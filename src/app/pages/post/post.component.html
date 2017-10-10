@@ -3,7 +3,7 @@
 <div class="section-post">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-6">
 
                 <div class="page-header">
                     <h1 *ngIf="post.url"><a href="{{post.url}}" target="_blank">{{post.title}}</a></h1>
@@ -23,6 +23,42 @@
 
                 <div *ngIf="post.content" class="post-content">
                     {{post.content}}
+                </div>
+
+                <div class="page-header">
+                    <h3>Join the discussion</h3>
+                </div>
+
+                <div class="comment-form">
+                    <form *ngIf="user" (ngSubmit)="onSubmit()" #postCommentForm="ngForm">
+                        <div *ngIf="error !== null" class="comment-form__alert">
+                            {{error}}
+                        </div>
+                        <div *ngIf="commentSuccess == true" class="comment-form__success">
+                            Your comment has been successfully posted!
+                        </div>
+                        <div class="comment-form__group">
+                        <textarea
+                            [(ngModel)]="commentField.content"
+                            #content="ngModel" name="content"
+                            id="content"
+                            required
+                            autocomplete="off"
+                            class="comment-form__field"
+                            placeholder="Your comment...">
+                        </textarea>
+                        </div>
+                        <button [disabled]="loading || !postCommentForm.form.valid" type="submit"
+                                class="comment-form__button">
+                            <span *ngIf="!loading">Post comment</span>
+                            <span *ngIf="loading"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
+                        </button>
+                    </form>
+
+                    <div *ngIf="!user" class="comment-form__login-notice">
+                        Become a part of the Hacker News community and join the discussion.
+                        <a routerLink="/login">Click here to sign up for a membership</a>.
+                    </div>
                 </div>
 
                 <div class="page-header">
@@ -50,9 +86,8 @@
                 </form>
 
                 <div class="comments">
-                    <span class="text-muted">There are no comments for this post</span>
+                    <span class="text-muted">There are no comments for this post. But you can be the first one to share your thoughts!</span>
                 </div>
-
             </div>
         </div>
     </div>
