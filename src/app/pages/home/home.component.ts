@@ -2,6 +2,8 @@ import {Component, OnInit, HostListener} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
 import {Post} from '../../models/post';
+import {TokenService} from '../../services/token/token.service';
+import {ChangeDetectorRef} from '@angular/core';
 
 @Component({
     selector: 'app-home',
@@ -16,7 +18,7 @@ export class HomeComponent implements OnInit {
     hasMore;
     loading;
 
-    constructor(private route: ActivatedRoute, private apiService: ApiService) {
+    constructor(private route: ActivatedRoute, private apiService: ApiService, private tokenService: TokenService, private ref: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -62,5 +64,31 @@ export class HomeComponent implements OnInit {
                 this.loadMorePosts();
             }
         }
+    }
+
+    upvotePost(post: Post): void {
+        const token = this.tokenService.getToken();
+
+        this.apiService.upvotePost(post.id, token).subscribe((res) => {
+            if (res.code !== 0) {
+                this.error = res.message;
+            } else {
+                post.karma = res.data.karma;
+                this.ref.detectChanges();
+            }
+        });
+    }
+
+    downvotePost(post: Post): void {
+        const token = this.tokenService.getToken();
+
+        this.apiService.downvotePost(post.id, token).subscribe((res) => {
+            if (res.code !== 0) {
+                this.error = res.message;
+            } else {
+                post.karma = res.data.karma;
+                this.ref.detectChanges();
+            }
+        });
     }
 }
