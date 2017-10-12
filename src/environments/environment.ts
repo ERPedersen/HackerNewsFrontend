@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://hackernews.app'
+  apiUrl: 'http://api.hackernews.dev'
 };

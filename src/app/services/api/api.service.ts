@@ -43,4 +43,9 @@ export class ApiService {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.post(this.apiUrl + '/downvotepost', {postRef: postId}, {headers});
     }
+
+    postComment(post_ref, comment_ref, content, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + '/comment', {post_ref, comment_ref, content}, {headers});
+    }
 }
