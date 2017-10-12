@@ -34,8 +34,8 @@ export class ApiService {
         return this.http.get(this.apiUrl + `/post/${slug}`);
     }
 
-    postComment(user_ref, post_ref, comment_ref, content, token): Observable<any> {
+    postComment(post_ref, comment_ref, content, token): Observable<any> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.post(this.apiUrl + '/comment', {user_ref, post_ref, comment_ref, content}, {headers});
+        return this.http.post(this.apiUrl + '/comment', {post_ref, comment_ref, content}, {headers});
     }
 }

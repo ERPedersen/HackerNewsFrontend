@@ -60,8 +60,7 @@ export class PostComponent implements OnInit {
     public postCommentToPost(): void {
         const token = this.tokenService.getToken();
 
-        this.apiService.postComment(this.commentField.user_ref, this.commentField.post_ref,
-            this.commentField.comment_ref, this.commentField.content, token)
+        this.apiService.postComment(this.commentField.post_ref, this.commentField.comment_ref, this.commentField.content, token)
             .subscribe((res) => {
                 this.loading = false;
                 this.commentField.content = '';
