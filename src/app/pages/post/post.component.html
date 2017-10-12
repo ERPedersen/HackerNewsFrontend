@@ -67,7 +67,40 @@
 
 
                 <div class="comments">
-                    <span class="text-muted">There are no comments for this post. But you can be the first one to share your thoughts!</span>
+                    <div *ngIf="comments.length == 0">
+                        <span class="text-muted">There are no comments for this post. But you can be the first one to share your thoughts!</span>
+                    </div>
+                    <div class="section-comments">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="comment" *ngFor="let comment of comments;">
+                                        <ul class="post-meta">
+                                            <li class="post-meta-item">
+                                                <span class="author">{{post.author.alias}}</span>
+                                            </li>
+                                            <li class="post-meta-item">
+                                                <span class="author">{{comment.author.karma}}</span> <i
+                                                class="fa fa-diamond"></i>
+                                            </li>
+                                            <li class="post-meta-item" (click)="upvotePost(post)">
+                                                <span><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+                                            </li>
+                                            <li class="post-meta-item" (click)="downvotePost(post)">
+                                                <span><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+                                            </li>
+                                            <li class="post-meta-item">
+                                                {{post.created_at | amUtc | amTimeAgo}}
+                                            </li>
+                                        </ul>
+                                        <div class="post-content">
+                                            {{comment.content}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
