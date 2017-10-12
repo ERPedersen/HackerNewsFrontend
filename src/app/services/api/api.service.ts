@@ -27,11 +27,21 @@ export class ApiService {
     }
 
     getPosts(limit, page): Observable<any> {
-        return this.http.get(this.apiUrl + `/post?limit=10&page=${page}`);
+        return this.http.get(this.apiUrl + `/hackerpost?limit=10&page=${page}`);
     }
 
     getPost(slug: string): Observable<any> {
-        return this.http.get(this.apiUrl + `/post/${slug}`);
+        return this.http.get(this.apiUrl + `/hackerpost/${slug}`);
+    }
+
+    upvotePost(postId: number, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + `/upvotepost`, {postRef: postId}, {headers});
+    }
+
+    downvotePost(postId: number, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + '/downvotepost', {postRef: postId}, {headers});
     }
 
     postComment(user_ref, post_ref, comment_ref, content, token): Observable<any> {
