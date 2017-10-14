@@ -34,7 +34,8 @@ export class PostComponent implements OnInit {
         const response = this.route.snapshot.data['post'];
         if (response) {
             if (response.data) {
-                this.post = response.data;
+                this.post = response.data.post;
+                this.comments = response.data.comments.comments;
             }
         }
 
@@ -66,7 +67,6 @@ export class PostComponent implements OnInit {
                 this.commentField.content = '';
                 this.commentSuccess = true;
                 this.comments.push(res.data.comment);
-                console.log(this.comments);
             }, (error) => {
                 this.loading = false;
                 this.commentSuccess = false;
