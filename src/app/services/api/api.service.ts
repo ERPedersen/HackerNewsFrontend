@@ -44,6 +44,16 @@ export class ApiService {
         return this.http.post(this.apiUrl + '/posts/downvote', {post_ref: postId}, {headers});
     }
 
+    upvoteComment(commentId: number, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + `/comments/upvote`, {comment_ref: commentId}, {headers});
+    }
+
+    downvoteComment(commentId: number, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + '/comments/downvote', {comment_ref: commentId}, {headers});
+    }
+
     postComment(post_ref, comment_ref, content, token): Observable<any> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.post(this.apiUrl + '/comments', {post_ref, comment_ref, content}, {headers});

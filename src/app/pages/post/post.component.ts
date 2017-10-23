@@ -104,4 +104,31 @@ export class PostComponent implements OnInit {
             }
         });
     }
+
+    upvoteComment(comment: Comment): void {
+        const token = this.tokenService.getToken();
+
+        this.apiService.upvoteComment(comment.id, token).subscribe((res) => {
+            if (res.code !== 0) {
+                this.error = res.message;
+            } else {
+                comment.karma = res.data.karma;
+                console.log(comment.karma);
+                this.ref.detectChanges();
+            }
+        });
+    }
+
+    downvoteComment(comment: Comment): void {
+        const token = this.tokenService.getToken();
+
+        this.apiService.downvoteComment(comment.id, token).subscribe((res) => {
+            if (res.code !== 0) {
+                this.error = res.message;
+            } else {
+                comment.karma = res.data.karma;
+                this.ref.detectChanges();
+            }
+        });
+    }
 }
