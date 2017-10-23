@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Post} from '../../models/post';
 import {CommentSubmission, Comment} from '../../models/comment';
 import {ApiService} from '../../services/api/api.service';
 import {TokenService} from '../../services/token/token.service';
 import {UserService} from 'app/services/user/user.service';
-import {Router} from '@angular/router';
 import {User} from '../../models/user';
 
 @Component({
@@ -26,7 +25,8 @@ export class PostComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private apiService: ApiService,
                 private tokenService: TokenService,
-                private userService: UserService) {
+                private userService: UserService,
+                private ref: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -79,4 +79,29 @@ export class PostComponent implements OnInit {
             });
     }
 
+    upvotePost(post: Post): void {
+        const token = this.tokenService.getToken();
+
+        this.apiService.upvotePost(post.id, token).subscribe((res) => {
+            if (res.code !== 0) {
+                this.error = res.message;
+            } else {
+                post.karma = res.data.karma;
+                this.ref.detectChanges();
+            }
+        });
+    }
+
+    downvotePost(post: Post): void {
+        const token = this.tokenService.getToken();
+
+        this.apiService.downvotePost(post.id, token).subscribe((res) => {
+            if (res.code !== 0) {
+                this.error = res.message;
+            } else {
+                post.karma = res.data.karma;
+                this.ref.detectChanges();
+            }
+        });
+    }
 }

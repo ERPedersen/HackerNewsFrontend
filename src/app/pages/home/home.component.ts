@@ -18,7 +18,10 @@ export class HomeComponent implements OnInit {
     hasMore;
     loading;
 
-    constructor(private route: ActivatedRoute, private apiService: ApiService, private tokenService: TokenService, private ref: ChangeDetectorRef) {
+    constructor(private route: ActivatedRoute,
+                private apiService: ApiService,
+                private tokenService: TokenService,
+                private ref: ChangeDetectorRef) {
     }
 
     ngOnInit() {

@@ -12,6 +12,12 @@
                         <li class="post-meta-item">
                             <span class="karma">{{post.karma}}</span> <i class="fa fa-diamond"></i>
                         </li>
+                        <li class="post-meta-item" (click)="upvotePost(post)">
+                            <span><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+                        </li>
+                        <li class="post-meta-item" (click)="downvotePost(post)">
+                            <span><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+                        </li>
                         <li class="post-meta-item">
                             Posted by <span class="author">{{post.author.alias}}</span>
                         </li>
