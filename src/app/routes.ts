@@ -19,7 +19,7 @@ export const RouteConf = [
         }
     },
     {
-        path: 'hackerpost/:slug',
+        path: 'posts/:slug',
         component: PostComponent,
         canActivate: [UserGuard],
         resolve: {
