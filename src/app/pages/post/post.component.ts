@@ -1,3 +1,5 @@
+import { AnimationService } from './../../services/animation/animation.service';
+import { IconService } from './../../services/icon/icon.service';
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Post} from '../../models/post';
@@ -17,6 +19,7 @@ export class PostComponent implements OnInit {
     post: Post;
     loading: boolean;
     error: string = null;
+    errorCode: string;
     commentSuccess: boolean;
     commentField: CommentSubmission;
     comments: Comment[] = new Array();
@@ -26,7 +29,9 @@ export class PostComponent implements OnInit {
                 private apiService: ApiService,
                 private tokenService: TokenService,
                 private userService: UserService,
-                private ref: ChangeDetectorRef) {
+                private ref: ChangeDetectorRef,
+                private animationService: AnimationService,
+                private iconService: IconService) {
     }
 
     ngOnInit() {
@@ -54,7 +59,9 @@ export class PostComponent implements OnInit {
             this.commentSuccess = false;
             this.postCommentToPost();
         } else {
+            this.errorCode = "403";
             this.error = 'You must be logged in to post a comment.';
+            this.animationService.fadeIn("#error-element");
         }
     }
 
@@ -67,6 +74,7 @@ export class PostComponent implements OnInit {
                 this.commentField.content = '';
                 this.commentSuccess = true;
                 this.comments.push(res.data.comment);
+                this.animationService.fadeOut("#error-element");
             }, (error) => {
                 this.loading = false;
                 this.commentSuccess = false;
@@ -75,60 +83,71 @@ export class PostComponent implements OnInit {
                     if (errorResponse.hasOwnProperty('message')) {
                         this.error = errorResponse.message;
                     }
+                    this.errorCode = error.status;
                 }
+                this.animationService.fadeIn("#error-element");
             });
     }
 
-    upvotePost(post: Post): void {
+    upvotePost(post: Post, node): void {
         const token = this.tokenService.getToken();
-
+        
         this.apiService.upvotePost(post.id, token).subscribe((res) => {
-            if (res.code !== 0) {
-                this.error = res.message;
-            } else {
-                post.karma = res.data.karma;
-                this.ref.detectChanges();
-            }
+            post.karma = res.data.karma;
+            this.iconService.swapIcon(0, node, "post");
+            this.animationService.fadeOut("#error-element");
+        }, (error) => {
+            let errorResponse = JSON.parse(error.error);
+            this.errorCode = error.status;
+            this.error = errorResponse.message;
+            this.animationService.fadeIn("#error-element");
         });
     }
 
-    downvotePost(post: Post): void {
+    downvotePost(post: Post, node): void {
         const token = this.tokenService.getToken();
-
+        
         this.apiService.downvotePost(post.id, token).subscribe((res) => {
-            if (res.code !== 0) {
-                this.error = res.message;
-            } else {
-                post.karma = res.data.karma;
-                this.ref.detectChanges();
-            }
+            post.karma = res.data.karma;
+            this.iconService.swapIcon(0, node, "post");
+            this.animationService.fadeOut("#error-element");
+        }, (error) => {
+            let errorResponse = JSON.parse(error.error);
+            this.errorCode = error.status;
+            this.error = errorResponse.message;
+            this.animationService.fadeIn("#error-element");
         });
     }
 
-    upvoteComment(comment: Comment): void {
+    upvoteComment(index, node): void {
         const token = this.tokenService.getToken();
+        let comment = this.comments[index];
 
         this.apiService.upvoteComment(comment.id, token).subscribe((res) => {
-            if (res.code !== 0) {
-                this.error = res.message;
-            } else {
-                comment.karma = res.data.karma;
-                console.log(comment.karma);
-                this.ref.detectChanges();
-            }
+            comment.karma = res.data.karma;
+            this.iconService.swapIcon(index, node, "comment");
+            this.animationService.fadeOut("#error-element");
+        }, (error) => {
+            let errorResponse = JSON.parse(error.error);
+            this.errorCode = error.status;
+            this.error = errorResponse.message;
+            this.animationService.fadeIn("#error-element");
         });
     }
 
-    downvoteComment(comment: Comment): void {
+    downvoteComment(index, node): void {
         const token = this.tokenService.getToken();
+        let comment = this.comments[index];
 
         this.apiService.downvoteComment(comment.id, token).subscribe((res) => {
-            if (res.code !== 0) {
-                this.error = res.message;
-            } else {
-                comment.karma = res.data.karma;
-                this.ref.detectChanges();
-            }
+            comment.karma = res.data.karma;
+            this.iconService.swapIcon(index, node, "comment");
+            this.animationService.fadeOut("#error-element");
+        }, (error) => {
+            let errorResponse = JSON.parse(error.error);
+            this.errorCode = error.status;
+            this.error = errorResponse.message;
+            this.animationService.fadeIn("#error-element");
         });
     }
 }

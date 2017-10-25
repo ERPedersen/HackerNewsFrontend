@@ -1,3 +1,5 @@
+import {AnimationService} from './services/animation/animation.service';
+import {IconService} from './services/icon/icon.service';
 import {ApiService} from './services/api/api.service';
 import {UserService} from './services/user/user.service';
 import {RouterModule} from '@angular/router';
@@ -46,10 +48,12 @@ export const GlobalModules = {
         ApiService,
         ValidationService,
         TokenService,
+        IconService,
         AuthGuard,
         UserGuard,
         PostsResolver,
         PostResolver,
+        AnimationService,
         {provide: APP_BASE_HREF, useValue: '/'}
     ]
 };
