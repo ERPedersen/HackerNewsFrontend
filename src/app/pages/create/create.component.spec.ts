@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateComponent } from './create.component';
-import {GlobalModules} from '../../module';
+import { GlobalModules } from '../../module';
 
 
 describe('CreateComponent', () => {
@@ -9,9 +9,8 @@ describe('CreateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateComponent ]
-    })
-    .compileComponents();
+      ...GlobalModules
+    }).compileComponents();
   }));
 
   beforeEach(() => {
