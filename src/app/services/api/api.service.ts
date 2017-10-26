@@ -18,7 +18,7 @@ export class ApiService {
     }
 
     signUp(email, password, alias): Observable<any> {
-        return this.http.post(this.apiUrl + '/signup', {email, password, alias});
+        return this.http.post(this.apiUrl + '/sign-up', {email, password, alias});
     }
 
     getProfileData(token): Observable<any> {
