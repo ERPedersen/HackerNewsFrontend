@@ -36,6 +36,11 @@ export class ApiService {
         return this.http.get(this.apiUrl + `/posts/${slug}`, {headers});
     }
 
+    createPost(type: string, url: string, title: string, content: string, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + '/posts', {type, url, title, content}, {headers});
+    }
+
     upvotePost(postId: number, token): Observable<any> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.post(this.apiUrl + `/posts/upvote`, {post_ref: postId}, {headers});

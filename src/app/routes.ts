@@ -1,3 +1,4 @@
+import { CreateComponent } from './pages/create/create.component';
 import {UserGuard} from './guards/user.guard';
 import {NotFoundComponent} from './pages/not-found/not-found.component';
 import {LoginComponent} from './pages/login/login.component';
@@ -40,6 +41,11 @@ export const RouteConf = [
         path: 'sign-up',
         component: SignUpComponent,
         canActivate: [UserGuard]
+    },
+    {
+        path: 'create',
+        component: CreateComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: '**',

@@ -1,3 +1,4 @@
+import { CreateComponent } from './pages/create/create.component';
 import {AnimationService} from './services/animation/animation.service';
 import {IconService} from './services/icon/icon.service';
 import {ApiService} from './services/api/api.service';
@@ -32,6 +33,7 @@ export const GlobalModules = {
         HomeComponent,
         SignUpComponent,
         PostComponent,
+        CreateComponent,
     ],
     imports: [
         BrowserModule,
