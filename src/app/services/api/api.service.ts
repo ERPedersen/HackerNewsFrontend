@@ -26,11 +26,43 @@ export class ApiService {
         return this.http.get(this.apiUrl + '/profile', {headers});
     }
 
-    getPosts(limit, page): Observable<any> {
-        return this.http.get(this.apiUrl + `/post?limit=10&page=${page}`);
+    getPosts(limit, page, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get(this.apiUrl + `/posts?limit=10&page=${page}`, {headers});
     }
 
-    getPost(slug: string): Observable<any> {
-        return this.http.get(this.apiUrl + `/post/${slug}`);
+    getPost(slug: string, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get(this.apiUrl + `/posts/${slug}`, {headers});
+    }
+
+    createPost(type: string, url: string, title: string, content: string, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + '/posts', {type, url, title, content}, {headers});
+    }
+
+    upvotePost(postId: number, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + `/posts/upvote`, {post_ref: postId}, {headers});
+    }
+
+    downvotePost(postId: number, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + '/posts/downvote', {post_ref: postId}, {headers});
+    }
+
+    upvoteComment(commentId: number, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + `/comments/upvote`, {comment_ref: commentId}, {headers});
+    }
+
+    downvoteComment(commentId: number, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + '/comments/downvote', {comment_ref: commentId}, {headers});
+    }
+
+    postComment(post_ref, comment_ref, content, token): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(this.apiUrl + '/comments', {post_ref, comment_ref, content}, {headers});
     }
 }

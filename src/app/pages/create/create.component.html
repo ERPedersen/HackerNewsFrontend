@@ -1,0 +1,78 @@
+<app-nav></app-nav>
+
+<section id="error-element">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="error-message">
+          <p>{{errorCode}} | {{error}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="success-element">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="success-message">
+            <p>{{message}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<header>
+  <div class="container">
+    <h1>Create a post.</h1>
+    <p>You can post either a URL or a story.</p>
+  </div>
+</header>
+
+<section id="post-type-section">
+  <div class="container">
+    <form action="">
+      <label>URL</label>
+      <input type="radio" value="url" [(ngModel)]="post.type" name="radio-url" />
+      <label>Story</label>
+      <input type="radio" value="story" [(ngModel)]="post.type" name="radio-story" />
+    </form>
+  </div>
+</section>
+
+<section id="create-post-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <form class="form" *ngIf="post.type == 'url'" (ngSubmit)="createPost()">
+          <label>Enter a title for your post.</label>
+          <input class="input" type="text" placeholder="Enter title" [(ngModel)]="post.title" name="title" required="required" />
+
+          <label>Enter the url linking to the article.</label>
+          <input class="input" type="text" placeholder="Enter URL" [(ngModel)]="post.url" name="url" pattern="[a-zA-Z ]*" required="required" />
+
+          <button class="button btn btn-default" type="submit">Create</button>
+          <button class="button btn btn-danger" type="reset">Reset</button>
+        </form>
+
+        <form class="form" *ngIf="post.type == 'story'" (ngSubmit)="createPost()">
+          <label>Enter a title for your post.</label>
+          <input class="input" type="text" placeholder="Enter title" [(ngModel)]="post.title" name="title" required="required" />
+
+          <label>Write your article.</label>
+          <textarea class="text" rows="5" placeholder="Enter content" [(ngModel)]="post.content" name="content"></textarea>
+
+          <button [disabled]="loading" class="button btn btn-default" type="submit">Create</button>
+          <button class="button btn btn-danger" type="reset">Reset</button>
+        </form>
+        <div id="post-error-element">
+          <ul *ngFor="let err of postError;">
+            <li class="post-error-message">{{err}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

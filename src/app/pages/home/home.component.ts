@@ -1,7 +1,10 @@
+import {AnimationService} from './../../services/animation/animation.service';
+import {IconService} from './../../services/icon/icon.service';
 import {Component, OnInit, HostListener} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
 import {Post} from '../../models/post';
+import {TokenService} from '../../services/token/token.service';
 
 @Component({
     selector: 'app-home',
@@ -11,12 +14,18 @@ import {Post} from '../../models/post';
 export class HomeComponent implements OnInit {
 
     posts: [Post];
-    error;
+    error: string;
+    errorCode: string;
     page;
-    hasMore;
-    loading;
+    hasMore: boolean;
+    loading: boolean;
 
-    constructor(private route: ActivatedRoute, private apiService: ApiService) {
+    constructor(private route: ActivatedRoute,
+                private apiService: ApiService,
+                private tokenService: TokenService,
+                private animationService: AnimationService,
+                private iconService: IconService) 
+                {
     }
 
     ngOnInit() {
@@ -37,8 +46,9 @@ export class HomeComponent implements OnInit {
 
     loadMorePosts() {
         this.loading = true;
+        let token = this.tokenService.getToken();
 
-        this.apiService.getPosts(10, this.page++).subscribe((res) => {
+        this.apiService.getPosts(10, this.page++, token).subscribe((res) => {
             if (res.code !== 0) {
                 this.error = res.message;
                 this.hasMore = false;
@@ -62,5 +72,41 @@ export class HomeComponent implements OnInit {
                 this.loadMorePosts();
             }
         }
+    }
+
+    upvotePost(index, node): void {
+        const token = this.tokenService.getToken();
+
+        let post = this.posts[index];
+        
+        this.apiService.upvotePost(post.id, token).subscribe((res) => {
+            post.karma = res.data.karma;
+            this.iconService.swapIcon(index, node, "post");
+            this.animationService.fadeOut("#error-element");
+        }, (error) => {
+            let errorResponse = JSON.parse(error.error);
+            this.errorCode = error.status;
+            this.error = errorResponse.message;
+            this.animationService.fadeIn("#error-element");
+        });
+    }
+
+    downvotePost(index, node): void {
+        const token = this.tokenService.getToken();
+
+        let post = this.posts[index];
+
+        console.log("called");
+        
+        this.apiService.downvotePost(post.id, token).subscribe((res) => {
+            post.karma = res.data.karma;
+            this.iconService.swapIcon(index, node, "post");
+            this.animationService.fadeOut("#error-element");
+        }, (error) => {
+            let errorResponse = JSON.parse(error.error);
+            this.errorCode = error.status;
+            this.error = errorResponse.message;
+            this.animationService.fadeIn("#error-element");
+        });
     }
 }

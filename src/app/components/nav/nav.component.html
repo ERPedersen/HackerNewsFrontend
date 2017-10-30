@@ -16,6 +16,9 @@
                         <span class="user-karma">{{user.karma}}<i class="fa fa-diamond"></i></span>
                     </p>
                     <ul class="nav navbar-nav">
+                        <li *ngIf="user" routerLinkActive="active"><a routerLink="/create">
+                            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                        </a></li>
                         <li *ngIf="!user" routerLinkActive="active"><a routerLink="/sign-up">Sign up</a></li>
                         <li *ngIf="!user" routerLinkActive="active"><a routerLink="/login">Login</a></li>
                         <li *ngIf="user" routerLinkActive="active"><a href="#">{{user.alias}}</a></li>

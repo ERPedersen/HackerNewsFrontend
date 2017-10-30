@@ -1,19 +1,43 @@
 <app-nav></app-nav>
 
+<section id="error-element">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-message">
+                    <p>{{errorCode}} | {{error}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <div class="section-posts">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div id="posts" class="posts">
-                    <div class="post" *ngFor="let post of posts;">
+                    <div class="post" *ngFor="let post of posts; index as i;" >
                         <h3>
                             <a *ngIf="post.url" href="{{post.url}}" target="_blank">{{post.title}}</a>
-                            <a *ngIf="post.content" [routerLink]="['/post', post.slug]">{{post.title}}</a>
+                            <a *ngIf="post.content" [routerLink]="['/posts', post.slug]">{{post.title}}</a>
                             <small *ngIf="post.domain" class="text-muted">({{post.domain}})</small>
                         </h3>
                         <ul class="post-meta">
                             <li class="post-meta-item">
                                 <span class="karma">{{post.karma}}</span> <i class="fa fa-diamond"></i>
+                            </li>
+                            <li class="post-meta-item" (click)="upvotePost(i, $event)">
+                                <span class="post-meta-upvote">
+                                    <i *ngIf="post.my_vote != 1;" class="fa fa-arrow-up" aria-hidden="true"></i>
+                                    <i *ngIf="post.my_vote == 1;" class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                </span>
+                            </li>
+                            <li class="post-meta-item" (click)="downvotePost(i, $event)">
+                                <span class="post-meta-downvote">
+                                    <i *ngIf="post.my_vote != -1;" class="fa fa-arrow-down" aria-hidden="true"></i>
+                                    <i *ngIf="post.my_vote == -1;" class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                </span>
                             </li>
                             <li class="post-meta-item">
                                 Posted by <span class="author">{{post.author.alias}}</span>
@@ -22,7 +46,7 @@
                                 {{post.created_at | amUtc | amTimeAgo}}
                             </li>
                             <li class="post-meta-item">
-                                <a [routerLink]="['/post', post.slug]">Go to discussion</a>
+                                <a [routerLink]="['/posts', post.slug]">Go to discussion</a>
                             </li>
                         </ul>
                     </div>
