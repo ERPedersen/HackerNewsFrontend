@@ -73,6 +73,7 @@ export class CreateComponent implements OnInit {
       if (this.post.title == "") this.postError.push("Please enter a valid title");
       if (this.post.content.length < 3) this.postError.push("Your article is to short")
       if (this.post.content.length > 255) this.postError.push("Your article is to long");
+      this.post.url = "";
     }
     return this.postError.length == 0;
   }
