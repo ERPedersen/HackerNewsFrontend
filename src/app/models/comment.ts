@@ -19,4 +19,5 @@ export class Comment {
     spam: boolean;
     created_at: string;
     author: User;
+    my_vote: number;
 }

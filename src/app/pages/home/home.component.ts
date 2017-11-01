@@ -81,10 +81,7 @@ export class HomeComponent implements OnInit {
         this.apiService.upvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
             post.my_vote = res.data.my_vote;
-        }, (error) => {
-            const errorResponse = JSON.parse(error.error);
-            this.errorCode = error.status;
-            this.error = errorResponse.message;
+        }, () => {
             alert('You need to be a registered user in order to upvote.');
         });
     }
@@ -97,10 +94,7 @@ export class HomeComponent implements OnInit {
         this.apiService.downvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
             post.my_vote = res.data.my_vote;
-        }, (error) => {
-            const errorResponse = JSON.parse(error.error);
-            this.errorCode = error.status;
-            this.error = errorResponse.message;
+        }, () => {
             alert('You need to be a registered user with at least 50 karma in order to downvote.');
         });
     }
