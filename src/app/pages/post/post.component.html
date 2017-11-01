@@ -19,21 +19,19 @@
 
                 <div class="page-header">
                     <h1 *ngIf="post.url"><a href="{{post.url}}" target="_blank">{{post.title}}</a></h1>
-                    <h1 *ngIf="post.content"><a [routerLink]="['/post', post.slug]">{{post.title}}</a></h1>
+                    <h1 *ngIf="post.content"><a [routerLink]="['/posts', post.slug]">{{post.title}}</a></h1>
                     <ul class="post-meta">
                         <li class="post-meta-item">
-                            <span class="karma">{{post.karma}}</span> <i class="fa fa-diamond"></i>
+                            <span class="karma">{{post.karma}}</span> <i class="fa fa-diamond karma-icon"></i>
                         </li>
-                        <li class="post-meta-item" (click)="upvotePost(post, $event)">
+                        <li class="post-meta-item" (click)="upvotePost(post)">
                             <span class="post-meta-upvote">
-                                <i *ngIf="post.my_vote != 1;" class="fa fa-arrow-up" aria-hidden="true"></i>
-                                <i *ngIf="post.my_vote == 1;" class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                <i class="fa fa-arrow-up" [ngClass]="{'is-active': post.my_vote == 1}" aria-hidden="true"></i>
                             </span>
                         </li>
-                        <li class="post-meta-item" (click)="downvotePost(post, $event)">
+                        <li class="post-meta-item" (click)="downvotePost(post)">
                             <span class="post-meta-downvote">
-                                <i *ngIf="post.my_vote != -1;" class="fa fa-arrow-down" aria-hidden="true"></i>
-                                <i *ngIf="post.my_vote == -1;" class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                <i class="fa fa-arrow-down" [ngClass]="{'is-active': post.my_vote == -1}" aria-hidden="true"></i>
                             </span>
                         </li>
                         <li class="post-meta-item">
@@ -60,13 +58,13 @@
                         </div>
                         <div class="comment-form__group">
                         <textarea
-                            [(ngModel)]="commentField.content"
-                            #content="ngModel" name="content"
-                            id="content"
-                            required
-                            autocomplete="off"
-                            class="comment-form__field"
-                            placeholder="Your comment...">
+                                [(ngModel)]="commentField.content"
+                                #content="ngModel" name="content"
+                                id="content"
+                                required
+                                autocomplete="off"
+                                class="comment-form__field"
+                                placeholder="Your comment...">
                         </textarea>
                         </div>
                         <button [disabled]="loading || !postCommentForm.form.valid" type="submit"
@@ -91,43 +89,36 @@
                     <div *ngIf="comments.length == 0">
                         <span class="text-muted">There are no comments for this post. But you can be the first one to share your thoughts!</span>
                     </div>
-                    <div class="section-comments">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="comment" *ngFor="let comment of comments; index as i;">
-                                        <ul class="post-meta">
-                                            <li class="post-meta-item">
-                                                <span class="author">{{post.author.alias}}</span>
-                                            </li>
-                                            <li class="post-meta-item">
-                                                <span class="author">{{comment.karma}}</span> <i
-                                                class="fa fa-diamond"></i>
-                                            </li>
-                                            <li class="post-meta-item" (click)="upvoteComment(i, $event)">
+
+                    <div class="comment" *ngFor="let comment of comments; index as i;">
+                        <div class="page-header">
+                            <ul class="post-meta">
+                                <li class="post-meta-item">
+                                    <span class="author">{{comment.author.alias}}</span>
+                                </li>
+                                <li class="post-meta-item">
+                                    <span class="author">{{comment.karma}}</span> <i class="fa fa-diamond karma-icon"></i>
+                                </li>
+                                <li class="post-meta-item" (click)="upvoteComment(i)">
                                                 <span class="comment-meta-upvote">
-                                                    <i *ngIf="comment.my_vote != 1;" class="fa fa-arrow-up" aria-hidden="true"></i>
-                                                    <i *ngIf="comment.my_vote == 1;" class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-arrow-up" [ngClass]="{'is-active': comment.my_vote == 1}" aria-hidden="true"></i>
                                                 </span>
-                                            </li>
-                                            <li class="post-meta-item" (click)="downvoteComment(i, $event)">
+                                </li>
+                                <li class="post-meta-item" (click)="downvoteComment(i)">
                                                 <span class="comment-meta-downvote">
-                                                    <i *ngIf="comment.my_vote != -1;" class="fa fa-arrow-down" aria-hidden="true"></i>
-                                                    <i *ngIf="comment.my_vote == -1;" class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-arrow-down" [ngClass]="{'is-active': comment.my_vote == -1}" aria-hidden="true"></i>
                                                 </span>
-                                            </li>
-                                            <li class="post-meta-item">
-                                                {{post.created_at | amUtc | amTimeAgo}}
-                                            </li>
-                                        </ul>
-                                        <div class="post-content">
-                                            {{comment.content}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                </li>
+                                <li class="post-meta-item">
+                                    {{comment.created_at | amUtc | amTimeAgo}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="post-content">
+                            {{comment.content}}
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

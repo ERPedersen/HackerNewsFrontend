@@ -1,7 +1,7 @@
 @import '../../../assets/scss/app';
 
-.section__post {
-
+.section-post {
+    padding-bottom: 60px;
 }
 
 #error-element {
@@ -27,7 +27,7 @@ ul.post-meta {
     li.post-meta-item {
         display: inline-block;
 
-        i.fa {
+        .karma-icon {
             color: $color-secondary;
         }
 
@@ -89,11 +89,6 @@ ul.post-meta {
 }
 
 .comment {
-    padding-bottom: 20px;
-
-    &:not(:last-of-type) {
-        border-bottom: 1px solid #e7e7e7;
-    }
 
     ul.post-meta {
         font-size: 13px;
@@ -104,7 +99,7 @@ ul.post-meta {
         li.post-meta-item {
             display: inline-block;
 
-            i.fa {
+            .karma-icon {
                 color: $color-secondary;
             }
 
@@ -126,6 +121,17 @@ ul.post-meta {
 
         @media screen and (min-width: $screen-sm-min) {
             display: inline;
+        }
+    }
+}
+
+.post-meta-downvote, .post-meta-upvote, .comment-meta-downvote, .comment-meta-upvote {
+    i.fa {
+        color: gray;
+        cursor: pointer;
+
+        &.is-active {
+            color: $color-secondary;
         }
     }
 }

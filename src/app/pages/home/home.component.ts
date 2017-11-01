@@ -74,39 +74,28 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    upvotePost(index, node): void {
+    upvotePost(index): void {
         const token = this.tokenService.getToken();
-
-        let post = this.posts[index];
+        const post = this.posts[index];
         
         this.apiService.upvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
-            this.iconService.swapIcon(index, node, "post");
-            this.animationService.fadeOut("#error-element");
-        }, (error) => {
-            let errorResponse = JSON.parse(error.error);
-            this.errorCode = error.status;
-            this.error = errorResponse.message;
-            this.animationService.fadeIn("#error-element");
+            post.my_vote = res.data.my_vote;
+        }, () => {
+            alert('You need to be a registered user in order to upvote.');
         });
     }
 
-    downvotePost(index, node): void {
+    downvotePost(index): void {
         const token = this.tokenService.getToken();
 
-        let post = this.posts[index];
-
-        console.log("called");
+        const post = this.posts[index];
         
         this.apiService.downvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
-            this.iconService.swapIcon(index, node, "post");
-            this.animationService.fadeOut("#error-element");
-        }, (error) => {
-            let errorResponse = JSON.parse(error.error);
-            this.errorCode = error.status;
-            this.error = errorResponse.message;
-            this.animationService.fadeIn("#error-element");
+            post.my_vote = res.data.my_vote;
+        }, () => {
+            alert('You need to be a registered user with at least 50 karma in order to downvote.');
         });
     }
 }

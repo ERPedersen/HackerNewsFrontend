@@ -11,4 +11,5 @@ export class Post {
     spam: boolean;
     karma: number;
     author: Author;
+    my_vote: number;
 }

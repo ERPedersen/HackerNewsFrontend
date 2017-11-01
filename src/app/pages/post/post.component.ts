@@ -22,7 +22,7 @@ export class PostComponent implements OnInit {
     errorCode: string;
     commentSuccess: boolean;
     commentField: CommentSubmission;
-    comments: Comment[] = new Array();
+    comments: Comment[] = [];
     user: User;
 
     constructor(private route: ActivatedRoute,
@@ -73,7 +73,7 @@ export class PostComponent implements OnInit {
                 this.loading = false;
                 this.commentField.content = '';
                 this.commentSuccess = true;
-                this.comments.push(res.data.comment);
+                this.comments.unshift(res.data.comment);
                 this.animationService.fadeOut("#error-element");
             }, (error) => {
                 this.loading = false;
@@ -89,65 +89,49 @@ export class PostComponent implements OnInit {
             });
     }
 
-    upvotePost(post: Post, node): void {
+    upvotePost(post: Post): void {
         const token = this.tokenService.getToken();
-        
+
         this.apiService.upvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
-            this.iconService.swapIcon(0, node, "post");
-            this.animationService.fadeOut("#error-element");
-        }, (error) => {
-            let errorResponse = JSON.parse(error.error);
-            this.errorCode = error.status;
-            this.error = errorResponse.message;
-            this.animationService.fadeIn("#error-element");
+            post.my_vote = res.data.my_vote;
+        }, () => {
+            alert('You need to be a registered user in order to upvote.');
         });
     }
 
-    downvotePost(post: Post, node): void {
+    downvotePost(post: Post): void {
         const token = this.tokenService.getToken();
-        
+
         this.apiService.downvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
-            this.iconService.swapIcon(0, node, "post");
-            this.animationService.fadeOut("#error-element");
-        }, (error) => {
-            let errorResponse = JSON.parse(error.error);
-            this.errorCode = error.status;
-            this.error = errorResponse.message;
-            this.animationService.fadeIn("#error-element");
+            post.my_vote = res.data.my_vote;
+        }, () => {
+            alert('You need to be a registered user with at least 50 karma in order to downvote.');
         });
     }
 
-    upvoteComment(index, node): void {
+    upvoteComment(index): void {
         const token = this.tokenService.getToken();
-        let comment = this.comments[index];
+        const comment = this.comments[index];
 
         this.apiService.upvoteComment(comment.id, token).subscribe((res) => {
             comment.karma = res.data.karma;
-            this.iconService.swapIcon(index, node, "comment");
-            this.animationService.fadeOut("#error-element");
-        }, (error) => {
-            let errorResponse = JSON.parse(error.error);
-            this.errorCode = error.status;
-            this.error = errorResponse.message;
-            this.animationService.fadeIn("#error-element");
+            comment.my_vote = res.data.my_vote;
+        }, () => {
+            alert('You need to be a registered user in order to upvote.');
         });
     }
 
-    downvoteComment(index, node): void {
+    downvoteComment(index): void {
         const token = this.tokenService.getToken();
-        let comment = this.comments[index];
+        const comment = this.comments[index];
 
         this.apiService.downvoteComment(comment.id, token).subscribe((res) => {
             comment.karma = res.data.karma;
-            this.iconService.swapIcon(index, node, "comment");
-            this.animationService.fadeOut("#error-element");
-        }, (error) => {
-            let errorResponse = JSON.parse(error.error);
-            this.errorCode = error.status;
-            this.error = errorResponse.message;
-            this.animationService.fadeIn("#error-element");
+            comment.my_vote = res.data.my_vote;
+        }, () => {
+            alert('You need to be a registered user with at least 50 karma in order to downvote.');
         });
     }
 }
