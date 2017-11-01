@@ -34,7 +34,7 @@
         li.post-meta-item {
             display: inline-block;
 
-            i.fa {
+            .karma-icon {
                 color: $color-secondary;
             }
 
@@ -56,6 +56,17 @@
 
         @media screen and (min-width: $screen-sm-min) {
             display: inline;
+        }
+    }
+}
+
+.post-meta-downvote, .post-meta-upvote {
+    i.fa {
+        color: gray;
+        cursor: pointer;
+
+        &.is-active {
+            color: $color-secondary;
         }
     }
 }
