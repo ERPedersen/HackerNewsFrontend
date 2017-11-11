@@ -23,6 +23,7 @@ import {SignUpComponent} from './pages/sign-up/sign-up.component';
 import {TokenService} from './services/token/token.service';
 import {PostComponent} from './pages/post/post.component';
 import {PostResolver} from './resolvers/post/post-resolver';
+import { NgProgressModule } from 'ngx-progressbar';
 
 export const GlobalModules = {
     declarations: [
@@ -40,6 +41,7 @@ export const GlobalModules = {
         FormsModule,
         HttpClientModule,
         MomentModule,
+        NgProgressModule,
         RouterModule.forRoot(
             RouteConf,
             // {enableTracing: true}

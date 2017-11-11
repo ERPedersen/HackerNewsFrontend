@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
 import {Post} from '../../models/post';
 import {TokenService} from '../../services/token/token.service';
+import {NgProgress} from 'ngx-progressbar';
 
 @Component({
     selector: 'app-home',
@@ -24,11 +25,15 @@ export class HomeComponent implements OnInit {
                 private apiService: ApiService,
                 private tokenService: TokenService,
                 private animationService: AnimationService,
-                private iconService: IconService) 
+                private iconService: IconService,
+                private ngProgress: NgProgress)
                 {
     }
 
     ngOnInit() {
+
+        // this.ngProgress.done();
+
         const response = this.route.snapshot.data['posts'];
 
         if (typeof response !== 'undefined') {
@@ -77,7 +82,7 @@ export class HomeComponent implements OnInit {
     upvotePost(index): void {
         const token = this.tokenService.getToken();
         const post = this.posts[index];
-        
+
         this.apiService.upvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
             post.my_vote = res.data.my_vote;
@@ -90,7 +95,7 @@ export class HomeComponent implements OnInit {
         const token = this.tokenService.getToken();
 
         const post = this.posts[index];
-        
+
         this.apiService.downvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
             post.my_vote = res.data.my_vote;

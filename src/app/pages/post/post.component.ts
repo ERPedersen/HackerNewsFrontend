@@ -8,6 +8,7 @@ import {ApiService} from '../../services/api/api.service';
 import {TokenService} from '../../services/token/token.service';
 import {UserService} from 'app/services/user/user.service';
 import {User} from '../../models/user';
+import {NgProgress} from 'ngx-progressbar';
 
 @Component({
     selector: 'app-post',
@@ -31,10 +32,13 @@ export class PostComponent implements OnInit {
                 private userService: UserService,
                 private ref: ChangeDetectorRef,
                 private animationService: AnimationService,
-                private iconService: IconService) {
+                private iconService: IconService,
+                private progressService: NgProgress) {
     }
 
     ngOnInit() {
+
+        this.progressService.done();
 
         const response = this.route.snapshot.data['post'];
         if (response) {
