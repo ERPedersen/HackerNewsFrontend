@@ -26,8 +26,7 @@ export class HomeComponent implements OnInit {
                 private tokenService: TokenService,
                 private animationService: AnimationService,
                 private iconService: IconService,
-                private ngProgress: NgProgress)
-                {
+                private ngProgress: NgProgress) {
     }
 
     ngOnInit() {
@@ -55,13 +54,17 @@ export class HomeComponent implements OnInit {
 
         this.apiService.getPosts(10, ++this.page, token).subscribe((res) => {
             if (res.code !== 0) {
-                this.error = res.message;
-                this.hasMore = false;
-                this.loading = false;
+                setTimeout(() => {
+                    this.error = res.message;
+                    this.hasMore = false;
+                    this.loading = false;
+                }, 1000);
             } else if (res.data.posts.length > 0) {
-                this.posts.push(...res.data.posts);
-                this.hasMore = res.data.has_more;
-                this.loading = false;
+                setTimeout(() => {
+                    this.posts.push(...res.data.posts);
+                    this.hasMore = res.data.has_more;
+                    this.loading = false;
+                }, 1000);
             }
         });
     }
