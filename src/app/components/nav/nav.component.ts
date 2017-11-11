@@ -1,4 +1,3 @@
-import {ApiService} from '../../services/api/api.service';
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
 import {User} from '../../models/user';
@@ -7,8 +6,7 @@ import {TokenService} from '../../services/token/token.service';
 
 @Component({
     selector: 'app-nav',
-    templateUrl: 'nav.component.html',
-    styleUrls: ['nav.component.scss']
+    templateUrl: 'nav.component.html'
 })
 export class NavComponent implements OnInit {
 

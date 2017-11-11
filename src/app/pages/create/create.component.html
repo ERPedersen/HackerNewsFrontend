@@ -1,78 +1,109 @@
 <app-nav></app-nav>
 
-<section id="error-element">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="error-message">
-          <p>{{errorCode}} | {{error}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="success-element">
+<div class="create-post">
     <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="success-message">
-            <p>{{message}}</p>
-          </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="create-post__heading">
+                    Submit a post
+                    <br>
+                    <br>
+                </h1>
+
+                <div class="create-post__types hidden">
+                    <div class="create__post-type">
+                        <label>
+                            <input type="radio" value="url" [(ngModel)]="post.type" name="radio-url"/>
+                            URL
+                        </label>
+                    </div>
+                    <div class="create-post__type">
+                        <label>
+                            <input type="radio" value="story" [(ngModel)]="post.type" name="radio-story"/>
+                            Story
+                        </label>
+                    </div>
+                </div>
+
+                <div class="create-post__form">
+                    <div class="form__divider">
+                        Title
+                        <span class="form__required">*</span>
+                    </div>
+                    <div class="form__group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="form__input-description">
+                                    Add a title to your post, but be sure to make it relevant for
+                                    your content.
+                                </p>
+                            </div>
+                            <div class="col-sm-6">
+                                <input class="form__input" type="text" placeholder="Lorem ipsum dolor..."
+                                       [(ngModel)]="post.title" name="title" required="required"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__divider">
+                        Content
+                        <span class="form__required">*</span>
+                    </div>
+                    <div class="form__group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="form__input-description">
+                                    Add some content to your post, but please make sure that your content
+                                    aligns with our rules by reading the <a href="#">Terms of Service</a> before submitting.
+                                </p>
+                            </div>
+                            <div class="col-sm-6">
+                                <textarea class="form__input form__input--textarea" placeholder="Lorem ipsum dolor..." [(ngModel)]="post.content"
+                                          name="content"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
     </div>
-  </section>
+</div>
 
-<header>
-  <div class="container">
-    <h1>Create a post.</h1>
-    <p>You can post either a URL or a story.</p>
-  </div>
-</header>
+<section id="create-post-section" class="hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form" *ngIf="post.type == 'url'" (ngSubmit)="createPost()">
+                    <label>Enter a title for your post.</label>
+                    <input class="input" type="text" placeholder="Enter title" [(ngModel)]="post.title" name="title"
+                           required="required"/>
 
-<section id="post-type-section">
-  <div class="container">
-    <form action="">
-      <label>URL</label>
-      <input type="radio" value="url" [(ngModel)]="post.type" name="radio-url" />
-      <label>Story</label>
-      <input type="radio" value="story" [(ngModel)]="post.type" name="radio-story" />
-    </form>
-  </div>
-</section>
+                    <label>Enter the url linking to the article.</label>
+                    <input class="input" type="text" placeholder="Enter URL" [(ngModel)]="post.url" name="url"
+                           pattern="[a-zA-Z ]*" required="required"/>
 
-<section id="create-post-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <form class="form" *ngIf="post.type == 'url'" (ngSubmit)="createPost()">
-          <label>Enter a title for your post.</label>
-          <input class="input" type="text" placeholder="Enter title" [(ngModel)]="post.title" name="title" required="required" />
+                    <button class="button btn btn-default" type="submit">Create</button>
+                    <button class="button btn btn-danger" type="reset">Reset</button>
+                </form>
 
-          <label>Enter the url linking to the article.</label>
-          <input class="input" type="text" placeholder="Enter URL" [(ngModel)]="post.url" name="url" pattern="[a-zA-Z ]*" required="required" />
+                <form class="form" *ngIf="post.type == 'story'" (ngSubmit)="createPost()">
+                    <label>Enter a title for your post.</label>
+                    <input class="input" type="text" placeholder="Enter title" [(ngModel)]="post.title" name="title"
+                           required="required"/>
 
-          <button class="button btn btn-default" type="submit">Create</button>
-          <button class="button btn btn-danger" type="reset">Reset</button>
-        </form>
+                    <label>Write your article.</label>
+                    <textarea class="text" rows="5" placeholder="Enter content" [(ngModel)]="post.content"
+                              name="content"></textarea>
 
-        <form class="form" *ngIf="post.type == 'story'" (ngSubmit)="createPost()">
-          <label>Enter a title for your post.</label>
-          <input class="input" type="text" placeholder="Enter title" [(ngModel)]="post.title" name="title" required="required" />
-
-          <label>Write your article.</label>
-          <textarea class="text" rows="5" placeholder="Enter content" [(ngModel)]="post.content" name="content"></textarea>
-
-          <button [disabled]="loading" class="button btn btn-default" type="submit">Create</button>
-          <button class="button btn btn-danger" type="reset">Reset</button>
-        </form>
-        <div id="post-error-element">
-          <ul *ngFor="let err of postError;">
-            <li class="post-error-message">{{err}}</li>
-          </ul>
+                    <button [disabled]="loading" class="button btn btn-default" type="submit">Create</button>
+                    <button class="button btn btn-danger" type="reset">Reset</button>
+                </form>
+                <div id="post-error-element">
+                    <ul *ngFor="let err of postError;">
+                        <li class="post-error-message">{{err}}</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>

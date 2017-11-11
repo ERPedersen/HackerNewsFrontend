@@ -1,0 +1,44 @@
+.navigation {
+    border-top: 1px solid rgba(255, 255, 255, .05);
+    border-bottom: 1px solid rgba(255, 255, 255, .05);
+    margin-bottom: 30px;
+    background-color: rgba(255, 255, 255, .05);
+
+    &__menu {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 0;
+        float: left;
+
+        &--right {
+            float: right;
+        }
+    }
+
+    &__item {
+        display: inline-block;
+        line-height: 40px;
+        margin-right: -4px;
+        text-align: center;
+    }
+
+    &__link {
+        display: block;
+        color: white;
+        padding: 2px 15px 0;
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition: 200ms ease;
+        transition-property: color;
+
+        &--active {
+            border-bottom: 2px solid $color-secondary;
+        }
+
+        &:hover, &:active, &:focus {
+            color: $color-secondary;
+        }
+    }
+}

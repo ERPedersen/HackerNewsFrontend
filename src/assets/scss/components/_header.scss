@@ -1,0 +1,33 @@
+.header {
+    background-color: rgba(255, 255, 255, .05);
+    overflow-y: auto;
+    height: 80px;
+
+    &__brand {
+        display: block;
+        line-height: 80px;
+        float: left;
+    }
+
+    &__logo {
+        display: none;
+        margin-top: 25px;
+
+        @media screen and (min-width: $screen-sm-min) {
+            display: block;
+        }
+
+        &--mobile {
+            display: block;
+
+            @media screen and (min-width: $screen-sm-min) {
+                display: none;
+            }
+        }
+    }
+
+    &__user-info {
+        float: right;
+        height: 80px;
+    }
+}

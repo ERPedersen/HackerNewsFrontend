@@ -24,6 +24,10 @@ import {TokenService} from './services/token/token.service';
 import {PostComponent} from './pages/post/post.component';
 import {PostResolver} from './resolvers/post/post-resolver';
 import { NgProgressModule } from 'ngx-progressbar';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {ToastrModule} from 'ngx-toastr';
 
 export const GlobalModules = {
     declarations: [
@@ -37,7 +41,14 @@ export const GlobalModules = {
         CreateComponent,
     ],
     imports: [
+        CommonModule,
         BrowserModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            positionClass: 'toast-bottom-right',
+            timeOut: 5000,
+            extendedTimeOut: 5000,
+        }),
         FormsModule,
         HttpClientModule,
         MomentModule,

@@ -1,0 +1,40 @@
+.toast {
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4) !important;
+    transition: 400ms ease all;
+
+    &:hover {
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4) !important;
+    }
+
+    &.toast-success {
+        background-color: transparentize($color-secondary, 0);
+
+        &:hover {
+            background-color: transparentize($color-secondary, .3);
+        }
+    }
+
+    &.toast-info {
+        background-color: transparentize($color-primary, 0);
+
+        &:hover {
+            background-color: transparentize($color-primary, .3);
+        }
+    }
+
+    &.toast-warning {
+        background-color: transparentize($brand-warning, 0);
+
+        &:hover {
+            background-color: transparentize($brand-warning, .3);
+        }
+    }
+
+    &.toast-error {
+        background-color: transparentize($brand-danger, 0);
+
+        &:hover {
+            background-color: transparentize($brand-danger, .3);
+        }
+    }
+}

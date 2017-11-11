@@ -1,34 +1,62 @@
-<div class="section-nav">
-    <nav class="navbar navbar-inverse navbar-static-top">
+<div class="glass">
+    <div class="header">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" (click)="collapse()">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" routerLink="">Hacker News</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse" [ngClass]="collapsed ? 'collapse in' : ''">
-                <div class="navbar-left">
-                    <ul class="nav navbar-nav">
-                        <li *ngIf="user" routerLinkActive="active"><a routerLink="/create">Add post</a></li>
-                    </ul>
+            <div class="row">
+                <div class="col-xs-12">
+                    <a class="header__brand" routerLink="/">
+                        <img src="assets/images/hackernews-logo-xs.png" class="header__logo">
+                        <img src="assets/images/hackernews-logo-mobile.png" class="header__logo header__logo--mobile">
+                    </a>
+                    <div class="header__user-info" *ngIf="user">
+                        <div class="user-info__alias">
+                            <i class="fa fa-user"></i>
+                            <span class="user-info__prop">{{user.alias}}</span>
+                        </div>
+                        <div class="user-info__karma">
+                            <i class="fa fa-trophy"></i>
+                            <span class="user-info__prop">{{user.karma}}</span>
+                        </div>
+                        <div class="user-info__logout">
+                            <i class="fa fa-sign-out"></i>
+                            <a class="user-info__link" (click)="logout()">Logout</a>
+                        </div>
+                        <div class="user-info__logout-mobile">
+                            <a class="user-info__link" (click)="logout()">
+                                <i class="fa fa-sign-out"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="navbar-right">
-                    <p *ngIf="user" class="navbar-text">
-                        <span class="user-karma">{{user.karma}}<i class="fa fa-diamond"></i></span>
-                    </p>
-                    <ul class="nav navbar-nav">
-                        <li *ngIf="!user" routerLinkActive="active"><a routerLink="/sign-up">Sign up</a></li>
-                        <li *ngIf="!user" routerLinkActive="active"><a routerLink="/login">Login</a></li>
-                        <li *ngIf="user" routerLinkActive="active"><a href="#">{{user.alias}}</a></li>
-                        <li *ngIf="user" routerLinkActive="active"><a (click)="logout()"><i
-                                class="fa fa-fw fa-sign-out"></i></a></li>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="navigation__menu">
+                        <li class="navigation__item">
+                            <a class="navigation__link" routerLink="/" routerLinkActive="navigation__link--active"
+                               [routerLinkActiveOptions]="{exact: true}">Home</a>
+                        </li>
+                        <li class="navigation__item">
+                            <a class="navigation__link" routerLink="/create" *ngIf="user"
+                               routerLinkActive="navigation__link--active">Submit Post</a>
+                        </li>
+                    </ul>
+                    <ul class="navigation__menu navigation__menu--right">
+                        <li class="navigation__item">
+                            <a class="navigation__link" routerLink="/sign-up" *ngIf="!user"
+                               routerLinkActive="navigation__link--active">Sign up</a>
+                        </li>
+                        <li class="navigation__item">
+                            <a class="navigation__link" routerLink="/login" *ngIf="!user"
+                               routerLinkActive="navigation__link--active">Log in</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
 </div>

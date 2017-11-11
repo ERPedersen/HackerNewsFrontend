@@ -25,17 +25,17 @@
                         </h3>
                         <ul class="post-meta">
                             <li class="post-meta-item">
-                                <span class="karma">{{post.karma}}</span> <i class="fa fa-diamond karma-icon"></i>
+                                <span class="karma">{{post.karma}}</span>
                             </li>
                             <li class="post-meta-item" (click)="upvotePost(i, $event)">
                                 <span class="post-meta-upvote">
-                                    <i class="fa fa-arrow-up" [ngClass]="{'is-active': post.my_vote == 1}"
+                                    <i class="fa fa-thumbs-up" [ngClass]="{'is-active': post.my_vote == 1}"
                                        aria-hidden="true"></i>
                                 </span>
                             </li>
                             <li class="post-meta-item" (click)="downvotePost(i, $event)">
                                 <span class="post-meta-downvote">
-                                    <i class="fa fa-arrow-down" [ngClass]="{'is-active': post.my_vote == -1}"
+                                    <i class="fa fa-thumbs-down" [ngClass]="{'is-active': post.my_vote == -1}"
                                        aria-hidden="true"></i>
                                 </span>
                             </li>
