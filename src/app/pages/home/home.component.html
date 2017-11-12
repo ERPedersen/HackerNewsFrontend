@@ -1,9 +1,9 @@
 <app-nav></app-nav>
-<div class="home">
+<div class="page">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="home__posts">
+                <div class="page__content">
                     <div class="post" *ngFor="let post of posts; index as i;">
                         <h3 class="post__title">
                             <a class="post__link" *ngIf="post.url" href="{{post.url}}" target="_blank">{{post.title}}</a>

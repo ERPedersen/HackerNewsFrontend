@@ -1,124 +1,110 @@
 <app-nav></app-nav>
 
-<section id="error-element">
+<div class="page">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="error-message">
-                    <p>{{errorCode}} | {{error}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<div class="section-post">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-
-                <div class="page-header">
-                    <h1 *ngIf="post.url"><a href="{{post.url}}" target="_blank">{{post.title}}</a></h1>
-                    <h1 *ngIf="post.content"><a [routerLink]="['/posts', post.slug]">{{post.title}}</a></h1>
-                    <ul class="post-meta">
-                        <li class="post-meta-item">
-                            <span class="karma">{{post.karma}}</span> <i class="fa fa-diamond karma-icon"></i>
+                <div class="post">
+                    <h1 class="post__title">
+                        <a class="post__link" *ngIf="post.url" href="{{post.url}}" target="_blank">{{post.title}}</a>
+                        <a class="post__link" *ngIf="post.content" [routerLink]="['/posts', post.slug]">{{post.title}}</a>
+                        <small class="post__domain" *ngIf="post.domain">({{post.domain}})</small>
+                    </h1>
+                    <ul class="post__meta">
+                        <li class="post__meta-item">
+                            <span class="post__meta-bold">{{post.karma}}</span>
                         </li>
-                        <li class="post-meta-item" (click)="upvotePost(post)">
-                            <span class="post-meta-upvote">
-                                <i class="fa fa-arrow-up" [ngClass]="{'is-active': post.my_vote == 1}" aria-hidden="true"></i>
+                        <li class="post__meta-item" (click)="upvotePost(post)">
+                            <span class="post__meta-icon">
+                                <i class="fa fa-thumbs-up" [ngClass]="{'is-active': post.my_vote == 1}" aria-hidden="true"></i>
                             </span>
                         </li>
-                        <li class="post-meta-item" (click)="downvotePost(post)">
-                            <span class="post-meta-downvote">
-                                <i class="fa fa-arrow-down" [ngClass]="{'is-active': post.my_vote == -1}" aria-hidden="true"></i>
+                        <li class="post__meta-item" (click)="downvotePost(post)">
+                            <span class="post__meta-icon">
+                                <i class="fa fa-thumbs-down" [ngClass]="{'is-active': post.my_vote == -1}" aria-hidden="true"></i>
                             </span>
                         </li>
-                        <li class="post-meta-item">
-                            Posted by <span class="author">{{post.author.alias}}</span>
+                        <li class="post__meta-item">
+                            Posted by <span class="post__meta-bold">{{post.author.alias}}</span>
                         </li>
-                        <li class="post-meta-item">
+                        <li class="post__meta-item">
                             {{post.created_at | amUtc | amTimeAgo}}
                         </li>
                     </ul>
                 </div>
 
-                <div *ngIf="post.content" class="post-content">
-                    {{post.content}}
+                <div class="single">
+                    <div *ngIf="post.content" class="single__content">
+                        {{post.content}}
+                    </div>
                 </div>
 
-                <div class="page-header">
-                    <h3>Join the discussion</h3>
-                </div>
+                <div class="commenting">
+                    <h3 class="commenting__header">
+                        <h2>Join the discussion</h2>
+                    </h3>
 
-                <div class="comment-form">
-                    <form *ngIf="user" (ngSubmit)="onSubmit()" #postCommentForm="ngForm">
-                        <div *ngIf="commentSuccess == true" class="comment-form__success">
-                            Your comment has been successfully posted!
+                    <form *ngIf="user" (ngSubmit)="onSubmit(); postCommentForm.reset()" #postCommentForm="ngForm">
+                        <div class="form__group">
+                            <textarea
+                                [(ngModel)]="commentField.content"
+                                #content="ngModel"
+                                name="content"
+                                required
+                                autocomplete="off"
+                                class="form__input form__input--textarea"
+                                placeholder="Your comment...">
+                            </textarea>
                         </div>
-                        <div class="comment-form__group">
-                        <textarea
-                            [(ngModel)]="commentField.content"
-                            #content="ngModel" name="content"
-                            id="content"
-                            required
-                            autocomplete="off"
-                            class="comment-form__field"
-                            placeholder="Your comment...">
-                        </textarea>
-                        </div>
-                        <button [disabled]="loading || !postCommentForm.form.valid" type="submit"
-                                class="comment-form__button">
-                            <span *ngIf="!loading">Post comment</span>
-                            <span *ngIf="loading"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
+                        <button [disabled]="loading || !postCommentForm.form.valid" type="submit" class="comment-form__button">
+                            Post comment
                         </button>
                     </form>
 
-                    <div *ngIf="!user" class="comment-form__login-notice">
+                    <div *ngIf="!user" class="commenting__notice">
                         Become a part of the Hacker News community and join the discussion.
                         <a routerLink="/login">Click here to sign up for a membership</a>.
                     </div>
+
                 </div>
 
-                <div class="page-header">
-                    <h3>Comments ({{comments ? comments.length : 0}})</h3>
-                </div>
+                <div class="discussion">
+                    <h2 class="discussion__header">
+                        Comments ({{comments ? comments.length : 0}})
+                    </h2>
 
-
-                <div class="comments">
-                    <div *ngIf="comments.length == 0">
-                        <span class="text-muted">There are no comments for this post. But you can be the first one to share your thoughts!</span>
+                    <div *ngIf="comments.length == 0" class="discussion__notice">
+                        There are no comments for this post. But you can be the first one to share your thoughts
                     </div>
 
-                    <div class="comment" *ngFor="let comment of comments; index as i;">
-                        <div class="page-header">
-                            <ul class="post-meta">
-                                <li class="post-meta-item">
-                                    <span class="author">{{comment.author.alias}}</span>
+                    <div class="discussion__comments">
+                        <div class="comment"  *ngFor="let comment of comments; index as i;">
+                            <ul class="comment__meta">
+                                <li class="comment__meta-item">
+                                    <span class="comment__meta-bold">{{comment.karma}}</span>
                                 </li>
-                                <li class="post-meta-item">
-                                    <span class="author">{{comment.karma}}</span> <i class="fa fa-diamond karma-icon"></i>
+                                <li class="comment__meta-item" (click)="upvoteComment(i)">
+                                    <span class="comment__meta-icon">
+                                        <i class="fa fa-thumbs-up" [ngClass]="{'is-active': comment.my_vote == 1}" aria-hidden="true"></i>
+                                    </span>
                                 </li>
-                                <li class="post-meta-item" (click)="upvoteComment(i)">
-                                                <span class="comment-meta-upvote">
-                                                    <i class="fa fa-arrow-up" [ngClass]="{'is-active': comment.my_vote == 1}" aria-hidden="true"></i>
-                                                </span>
+                                <li class="comment__meta-item" (click)="downvoteComment(i)">
+                                    <span class="comment__meta-icon">
+                                        <i class="fa fa-thumbs-down" [ngClass]="{'is-active': comment.my_vote == -1}" aria-hidden="true"></i>
+                                    </span>
                                 </li>
-                                <li class="post-meta-item" (click)="downvoteComment(i)">
-                                                <span class="comment-meta-downvote">
-                                                    <i class="fa fa-arrow-down" [ngClass]="{'is-active': comment.my_vote == -1}" aria-hidden="true"></i>
-                                                </span>
-                                </li>
-                                <li class="post-meta-item">
+                                <li class="comment__meta-item">
+                                    <span class="comment__meta-bold">{{comment.author.alias}}</span>
+                                    commented
                                     {{comment.created_at | amUtc | amTimeAgo}}
                                 </li>
                             </ul>
-                        </div>
-                        <div class="post-content">
-                            {{comment.content}}
+                            <div class="comment__content">
+                                {{comment.content}}
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

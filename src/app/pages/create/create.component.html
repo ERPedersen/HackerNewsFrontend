@@ -1,16 +1,14 @@
 <app-nav></app-nav>
 
-<div class="create-post">
+<div class="page">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="create-post__heading">
+                <h1 class="page__heading">
                     Submit a post
                 </h1>
-
                 <form (ngSubmit)="createPost()" #createPostForm="ngForm">
-
-                    <div class="create-post__form">
+                    <div class="page__form">
                         <div class="form__divider">
                             Post type
                             <span class="form__required">*</span>
@@ -82,11 +80,10 @@
                                             #content="ngModel"
                                             name="content"
                                             required="required"
-                                            autocomplete="off"
-                                            pattern=".*[^ \n\r\xA0\x00-\x09\x0B\x0C\x0E-\x1F\x7F].*"></textarea>
+                                            autocomplete="off"></textarea>
                                         <div *ngIf="content.invalid && content.dirty && content.touched"
                                              class="form__input-errors">
-                                            <span *ngIf="content.errors.required || content.errors.pattern" class="form__input-error">
+                                            <span *ngIf="content.errors.required" class="form__input-error">
                                                 You must provide some content
                                             </span>
                                         </div>
@@ -114,7 +111,7 @@
                                                #test="ngModel"
                                                name="url"
                                                type="text"
-                                               pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
+                                               pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
                                                required="required"
                                                autocomplete="off"/>
                                         <div *ngIf="test.invalid && test.dirty && test.touched"
@@ -131,7 +128,7 @@
                             </div>
                         </div>
                         <div class="form__disclaimer">
-                            By clicking Sign Up you agree to our terms of service, and that you have read our data policy, including our cookie usage.
+                            By submitting a post, you agree that the content of your post conforms with our <a href="#">Terms of Service</a>.
                         </div>
                         <div class="form__submit">
                             <button class="form__button" type="submit" [disabled]="loading || !createPostForm.form.valid">Submit post</button>

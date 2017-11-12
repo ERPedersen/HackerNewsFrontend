@@ -16,6 +16,9 @@ export class AppComponent implements OnInit {
         this.router.events.subscribe((event: Event) => {
             switch (event.constructor) {
                 case NavigationStart:
+                    if (this.ngProgress.isStarted()) {
+                        this.ngProgress.done();
+                    }
                     this.ngProgress.start();
                     break;
                 case NavigationEnd:
@@ -24,6 +27,10 @@ export class AppComponent implements OnInit {
                     this.ngProgress.done();
                     break;
             }
+        });
+
+        particlesJS.load('particles', 'assets/particles.json', function() {
+            console.log('callback - particles.js config loaded');
         });
     }
 }

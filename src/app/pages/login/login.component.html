@@ -1,48 +1,90 @@
 <app-nav></app-nav>
 
-<div class="section-login">
+<div class="page">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
-                <div class="page-header">
-                    <h1>Login</h1>
-                </div>
-
-                <div *ngIf="error !== null" class="alert alert-danger">{{error}}</div>
-
-                <div class="form-group">
-                    <input (input)="email.value = $event.target.value"
-                           (keyup.enter)="login()"
-                           (keyup)="validateEmailKeyUp()"
-                           (change)="validateEmail()"
-                           [ngClass]="!email.hasSuccess ? 'has-error' : ''"
-                           placeholder="Email"
-                           type="email"
-                           class="form-control">
-                    <span *ngIf="!email.hasSuccess" class="help-block has-error">Please provide a valid email</span>
-                </div>
-                <div class="form-group">
-                    <input (input)="password.value = $event.target.value"
-                           (keyup.enter)="login()"
-                           (keyup)="validatePasswordKeyUp()"
-                           (change)="validatePassword()"
-                           [ngClass]="!password.hasSuccess ? 'has-error' : ''"
-                           type="password"
-                           title="Password"
-                           placeholder="Password"
-                           class="form-control">
-                    <span *ngIf="!password.hasSuccess" class="help-block has-error">Please provide a password with a minimal length of 4 chars.</span>
-                </div>
-                <div class="form-group">
-                    <button (click)="login()" [disabled]="loading" type="button" class="btn btn-primary">
-                        <span *ngIf="!loading">Log in</span>
-                        <span *ngIf="loading"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
-                    </button>
-                    <button [disabled]="true" type="button" class="btn btn-secondary">
-                        Sign up
-                    </button>
-                </div>
+                <h1 class="page__heading">
+                    Sign in to Hacker News
+                </h1>
+                <form (ngSubmit)="login()" #loginForm="ngForm">
+                    <div class="page__form">
+                        <div class="form__divider">
+                            Email
+                            <span class="form__required">*</span>
+                        </div>
+                        <div class="form__group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="form__input-description">
+                                        Your e-mail. If you have forgotten your e-mail, <a href="#">click here to initiate a recovery process of your account.</a>
+                                    </p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input [(ngModel)]="loginUser.email"
+                                           #email="ngModel"
+                                           name="email"
+                                           required="required"
+                                           type="email"
+                                           class="form__input"
+                                           placeholder="john.doe@example.com"
+                                           autocomplete="off"
+                                           pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'/>
+                                    <div *ngIf="email.invalid && email.dirty && email.touched"
+                                         class="form__input-errors">
+                                            <span *ngIf="email.errors.required" class="form__input-error">
+                                                You must provide an email
+                                            </span>
+                                        <span *ngIf="email.errors.pattern" class="form__input-error">
+                                                You must provide a valid email
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__divider">
+                            Password
+                            <span class="form__required">*</span>
+                        </div>
+                        <div class="form__group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="form__input-description">
+                                        The password that you have previously signed up with. If you have forgotten your password,
+                                        you can <a href="#">click here to reset your password.</a>
+                                    </p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input [(ngModel)]="loginUser.password"
+                                           #password="ngModel"
+                                           name="password"
+                                           required="required"
+                                           type="password"
+                                           class="form__input"
+                                           placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                                           autocomplete="new-password"/>
+                                    <div *ngIf="password.invalid && password.dirty && password.touched"
+                                         class="form__input-errors">
+                                            <span *ngIf="password.errors.required" class="form__input-error">
+                                                You must provide a password
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__disclaimer">
+                            Don't have an account yet? <a routerLink="/sign-up">Click here to sign up</a>.
+                        </div>
+                        <div class="form__submit">
+                            <button class="form__button" type="submit" [disabled]="loading || !loginForm.form.valid">Sign in</button>
+                        </div>
+                        <div class="form__notice">
+                            Fields marked with
+                            <span class="form__required">*</span>
+                            are required fields
+                        </div>
+                    </div>
+                </form>
 
             </div>
         </div>

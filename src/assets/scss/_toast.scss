@@ -7,10 +7,10 @@
     }
 
     &.toast-success {
-        background-color: transparentize($color-secondary, 0);
+        background-color: transparentize($color-primary, 0);
 
         &:hover {
-            background-color: transparentize($color-secondary, .3);
+            background-color: transparentize($color-primary, .3);
         }
     }
 

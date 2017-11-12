@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../services/api/api.service';
-import {UserService} from '../../services/user/user.service';
 import {Router} from '@angular/router';
-import {ValidationService} from '../../services/validation/validation.service';
 import {TokenService} from '../../services/token/token.service';
+import {LoginUser} from '../../models/login-user';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-login',
@@ -12,73 +12,29 @@ import {TokenService} from '../../services/token/token.service';
 })
 export class LoginComponent implements OnInit {
 
-    error: string = null;
     loading: boolean;
-
-    email: any = {
-        dirty: false,
-        value: null,
-        hasSuccess: true,
-    };
-
-    password: any = {
-        dirty: false,
-        value: null,
-        hasSuccess: true,
-    };
+    loginUser: LoginUser;
 
     constructor(private apiService: ApiService,
                 private tokenService: TokenService,
                 private router: Router,
-                private validationService: ValidationService) {
+                private toastr: ToastrService) {
     }
 
     ngOnInit() {
+        this.loginUser = new LoginUser('', '');
     }
 
     public login(): void {
-        this.error = null;
-        this.validateEmail();
-        this.validatePassword();
-
-
-        if (this.email.hasSuccess && this.password.hasSuccess) {
-            this.performLogin();
-        }
-    }
-
-    private performLogin(): void {
         this.loading = true;
 
-        this.apiService.authenticate(this.email.value, this.password.value)
+        this.apiService.authenticate(this.loginUser.email, this.loginUser.password)
             .subscribe((res) => {
                 this.tokenService.setToken(res.data);
                 this.router.navigate(['']);
             }, () => {
                 this.loading = false;
-                this.error = 'The username and password doesn\'t match the credentials of any user in your database.';
+                this.toastr.error('The username and password doesn\'t match the credentials of any user in your database.');
             });
-    }
-
-    public validateEmail(): void {
-        this.email.dirty = true;
-        this.email.hasSuccess = this.validationService.validateEmail(this.email.value);
-    }
-
-    public validateEmailKeyUp(): void {
-        if (this.email.dirty) {
-            this.email.hasSuccess = this.validationService.validateEmail(this.email.value);
-        }
-    }
-
-    public validatePassword(): void {
-        this.password.dirty = true;
-        this.password.hasSuccess = this.validationService.validatePassword(this.password.value);
-    }
-
-    public validatePasswordKeyUp() {
-        if (this.password.dirty) {
-            this.password.hasSuccess = this.validationService.validatePassword(this.password.value);
-        }
     }
 }

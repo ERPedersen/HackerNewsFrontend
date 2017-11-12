@@ -1,5 +1,5 @@
 @import 'colors';
 
 .btn-secondary {
-  @include button-variant($color-white, $color-secondary, $color-secondary);
+  @include button-variant($color-white, $color-primary, $color-primary);
 }

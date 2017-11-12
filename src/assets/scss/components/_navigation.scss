@@ -34,11 +34,11 @@
         transition-property: color;
 
         &--active {
-            border-bottom: 2px solid $color-secondary;
+            border-bottom: 2px solid $color-primary;
         }
 
         &:hover, &:active, &:focus {
-            color: $color-secondary;
+            color: $color-primary;
         }
     }
 }

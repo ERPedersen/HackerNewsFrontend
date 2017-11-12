@@ -20,6 +20,14 @@
             min-height: 70px;
             resize: vertical;
         }
+
+        &.ng-dirty.ng-valid {
+            border: 1px solid $brand-success;
+        }
+
+        &:not(.ng-untouched).ng-dirty.ng-invalid {
+            border: 1px solid $brand-danger;
+        }
     }
 
     &__input-description {

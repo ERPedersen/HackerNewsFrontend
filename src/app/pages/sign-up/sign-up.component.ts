@@ -13,8 +13,7 @@ export class SignUpComponent implements OnInit {
 
     error: string = null;
     loading: boolean;
-    submitted: boolean;
-    user: SignUpUser;
+    signUpUser: SignUpUser;
 
     constructor(private apiService: ApiService,
                 private tokenService: TokenService,
@@ -22,18 +21,12 @@ export class SignUpComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.user = new SignUpUser(1, '', '', '');
-    }
-
-    onSubmit() {
-        this.submitted = true;
-        this.error = null;
-        this.loading = true;
-        this.signUp();
+        this.signUpUser = new SignUpUser(1, '', '', '');
     }
 
     public signUp(): void {
-        this.apiService.signUp(this.user.email, this.user.password, this.user.alias)
+        this.loading = true;
+        this.apiService.signUp(this.signUpUser.email, this.signUpUser.password, this.signUpUser.alias)
             .subscribe((res) => {
                 this.tokenService.setToken(res.data);
                 this.router.navigate(['']);

@@ -63,13 +63,13 @@
     @keyframes animation--color {
         100%,
         0% {
-            stroke: $color-secondary;
+            stroke: $color-primary;
         }
         40% {
             stroke: $color-white;
         }
         66% {
-            stroke: $color-secondary;
+            stroke: $color-primary;
         }
         80%,
         90% {
