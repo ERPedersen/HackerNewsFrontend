@@ -2,8 +2,8 @@
     text-align: center;
     margin-top: 30px;
 
-    h5 {
-        color: $gray-light;
+    &__label {
+        color: $color-white;
     }
 
     &__loader {
@@ -66,14 +66,14 @@
             stroke: $color-secondary;
         }
         40% {
-            stroke: $gray-light;
+            stroke: $color-white;
         }
         66% {
             stroke: $color-secondary;
         }
         80%,
         90% {
-            stroke: $gray-light;
+            stroke: $color-white;
         }
     }
 }

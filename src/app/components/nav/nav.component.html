@@ -7,24 +7,51 @@
                         <img src="assets/images/hackernews-logo-xs.png" class="header__logo">
                         <img src="assets/images/hackernews-logo-mobile.png" class="header__logo header__logo--mobile">
                     </a>
-                    <div class="header__user-info" *ngIf="user">
-                        <div class="user-info__alias">
+                    <div class="header__user-info">
+
+                        <div class="user-info__alias" *ngIf="user">
                             <i class="fa fa-user"></i>
                             <span class="user-info__prop">{{user.alias}}</span>
                         </div>
-                        <div class="user-info__karma">
+
+                        <div class="user-info__karma" *ngIf="user">
                             <i class="fa fa-trophy"></i>
                             <span class="user-info__prop">{{user.karma}}</span>
                         </div>
-                        <div class="user-info__logout">
+
+                        <div class="user-info__logout" *ngIf="user">
                             <i class="fa fa-sign-out"></i>
                             <a class="user-info__link" (click)="logout()">Logout</a>
                         </div>
-                        <div class="user-info__logout-mobile">
+
+                        <div class="user-info__logout-mobile" *ngIf="user">
                             <a class="user-info__link" (click)="logout()">
                                 <i class="fa fa-sign-out"></i>
                             </a>
                         </div>
+
+                        <div class="user-info__logout" *ngIf="!user">
+                            <i class="fa fa-sign-out"></i>
+                            <a class="user-info__link" routerLink="/login">Log in</a>
+                        </div>
+
+                        <div class="user-info__logout-mobile" *ngIf="!user">
+                            <a class="user-info__link" routerLink="/login">
+                                <i class="fa fa-sign-in"></i>
+                            </a>
+                        </div>
+
+                        <div class="user-info__logout" *ngIf="!user">
+                            <i class="fa fa-user-plus"></i>
+                            <a class="user-info__link" routerLink="/sign-up">Sign up</a>
+                        </div>
+
+                        <div class="user-info__logout-mobile" *ngIf="!user">
+                            <a class="user-info__link" routerLink="/sign-up">
+                                <i class="fa fa-user-plus"></i>
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -43,16 +70,6 @@
                         <li class="navigation__item">
                             <a class="navigation__link" routerLink="/create" *ngIf="user"
                                routerLinkActive="navigation__link--active">Submit Post</a>
-                        </li>
-                    </ul>
-                    <ul class="navigation__menu navigation__menu--right">
-                        <li class="navigation__item">
-                            <a class="navigation__link" routerLink="/sign-up" *ngIf="!user"
-                               routerLinkActive="navigation__link--active">Sign up</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a class="navigation__link" routerLink="/login" *ngIf="!user"
-                               routerLinkActive="navigation__link--active">Log in</a>
                         </li>
                     </ul>
                 </div>

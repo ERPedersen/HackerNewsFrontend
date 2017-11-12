@@ -1,52 +1,37 @@
 <app-nav></app-nav>
-
-<section id="error-element">
+<div class="home">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="error-message">
-                    <p>{{errorCode}} | {{error}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="section-posts">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="posts" class="posts">
+                <div class="home__posts">
                     <div class="post" *ngFor="let post of posts; index as i;">
-                        <h3>
-                            <a *ngIf="post.url" href="{{post.url}}" target="_blank">{{post.title}}</a>
-                            <a *ngIf="post.content" [routerLink]="['/posts', post.slug]">{{post.title}}</a>
-                            <small *ngIf="post.domain" class="text-muted">({{post.domain}})</small>
+                        <h3 class="post__title">
+                            <a class="post__link" *ngIf="post.url" href="{{post.url}}" target="_blank">{{post.title}}</a>
+                            <a class="post__link" *ngIf="post.content" [routerLink]="['/posts', post.slug]">{{post.title}}</a>
+                            <small class="post__domain" *ngIf="post.domain">({{post.domain}})</small>
                         </h3>
-                        <ul class="post-meta">
-                            <li class="post-meta-item">
-                                <span class="karma">{{post.karma}}</span>
+                        <ul class="post__meta">
+                            <li class="post__meta-item">
+                                <span class="post__meta-bold">{{post.karma}}</span>
                             </li>
-                            <li class="post-meta-item" (click)="upvotePost(i, $event)">
-                                <span class="post-meta-upvote">
-                                    <i class="fa fa-thumbs-up" [ngClass]="{'is-active': post.my_vote == 1}"
-                                       aria-hidden="true"></i>
+                            <li class="post__meta-item" (click)="upvotePost(i, $event)">
+                                <span class="post__meta-icon">
+                                    <i class="fa fa-thumbs-up" [ngClass]="{'is-active': post.my_vote == 1}" aria-hidden="true"></i>
                                 </span>
                             </li>
-                            <li class="post-meta-item" (click)="downvotePost(i, $event)">
-                                <span class="post-meta-downvote">
-                                    <i class="fa fa-thumbs-down" [ngClass]="{'is-active': post.my_vote == -1}"
-                                       aria-hidden="true"></i>
+                            <li class="post__meta-item" (click)="downvotePost(i, $event)">
+                                <span class="post__meta-icon">
+                                    <i class="fa fa-thumbs-down" [ngClass]="{'is-active': post.my_vote == -1}" aria-hidden="true"></i>
                                 </span>
                             </li>
-                            <li class="post-meta-item">
-                                Posted by <span class="author">{{post.author.alias}}</span>
+                            <li class="post__meta-item">
+                                Posted by <span class="post__meta-bold">{{post.author.alias}}</span>
                             </li>
-                            <li class="post-meta-item">
+                            <li class="post__meta-item">
                                 {{post.created_at | amUtc | amTimeAgo}}
                             </li>
-                            <li class="post-meta-item">
-                                <a [routerLink]="['/posts', post.slug]">Go to discussion</a>
+                            <li class="post__meta-item">
+                                <a class="post__meta-link" [routerLink]="['/posts', post.slug]">Go to discussion</a>
                             </li>
                         </ul>
                     </div>
@@ -55,8 +40,7 @@
                     <div class="preloader">
                         <div class="preloader__loader">
                             <svg class="preloader__circle" viewBox="25 25 50 50">
-                                <circle class="preloader__path" cx="50" cy="50" r="20" fill="none" stroke-width="2"
-                                        stroke-miterlimit="10"/>
+                                <circle class="preloader__path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
                             </svg>
                         </div>
                         <h5 class="preloader__label">Fetching posts</h5>
