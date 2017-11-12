@@ -58,13 +58,13 @@
                         </div>
                         <div class="comment-form__group">
                         <textarea
-                                [(ngModel)]="commentField.content"
-                                #content="ngModel" name="content"
-                                id="content"
-                                required
-                                autocomplete="off"
-                                class="comment-form__field"
-                                placeholder="Your comment...">
+                            [(ngModel)]="commentField.content"
+                            #content="ngModel" name="content"
+                            id="content"
+                            required
+                            autocomplete="off"
+                            class="comment-form__field"
+                            placeholder="Your comment...">
                         </textarea>
                         </div>
                         <button [disabled]="loading || !postCommentForm.form.valid" type="submit"
