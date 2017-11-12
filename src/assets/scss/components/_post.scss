@@ -1,0 +1,48 @@
+.post {
+    padding-bottom: 20px;
+
+    &:not(:last-of-type) {
+        border-bottom: 1px solid rgba(255, 255, 255, .05);
+    }
+
+    &__domain {
+        margin-top: 8px;
+        display: block;
+        color: $color-white;
+
+        @media screen and (min-width: $screen-sm-min) {
+            display: inline;
+        }
+    }
+
+    &__meta {
+        font-size: 13px;
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    &__meta-item {
+        display: inline-block;
+
+        &:not(:last-of-type):after {
+            content: "|";
+            color: #c7c7c7;
+        }
+    }
+
+    &__meta-icon {
+        i.fa {
+            color: gray;
+            cursor: pointer;
+
+            &.is-active {
+                color: $color-primary;
+            }
+        }
+    }
+
+    &__meta-bold {
+        font-weight: 700;
+    }
+}

@@ -1,6 +1,4 @@
-import { AnimationService } from './../../services/animation/animation.service';
-import { IconService } from './../../services/icon/icon.service';
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Post} from '../../models/post';
 import {CommentSubmission, Comment} from '../../models/comment';
@@ -8,6 +6,7 @@ import {ApiService} from '../../services/api/api.service';
 import {TokenService} from '../../services/token/token.service';
 import {UserService} from 'app/services/user/user.service';
 import {User} from '../../models/user';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-post',
@@ -29,9 +28,7 @@ export class PostComponent implements OnInit {
                 private apiService: ApiService,
                 private tokenService: TokenService,
                 private userService: UserService,
-                private ref: ChangeDetectorRef,
-                private animationService: AnimationService,
-                private iconService: IconService) {
+                private toastr: ToastrService) {
     }
 
     ngOnInit() {
@@ -59,9 +56,8 @@ export class PostComponent implements OnInit {
             this.commentSuccess = false;
             this.postCommentToPost();
         } else {
-            this.errorCode = "403";
+            this.errorCode = '403';
             this.error = 'You must be logged in to post a comment.';
-            this.animationService.fadeIn("#error-element");
         }
     }
 
@@ -72,12 +68,10 @@ export class PostComponent implements OnInit {
             .subscribe((res) => {
                 this.loading = false;
                 this.commentField.content = '';
-                this.commentSuccess = true;
                 this.comments.unshift(res.data.comment);
-                this.animationService.fadeOut("#error-element");
+                this.toastr.success('Your comment was successfully posted.');
             }, (error) => {
                 this.loading = false;
-                this.commentSuccess = false;
                 if (error.hasOwnProperty('error')) {
                     const errorResponse = JSON.parse(error.error);
                     if (errorResponse.hasOwnProperty('message')) {
@@ -85,7 +79,6 @@ export class PostComponent implements OnInit {
                     }
                     this.errorCode = error.status;
                 }
-                this.animationService.fadeIn("#error-element");
             });
     }
 

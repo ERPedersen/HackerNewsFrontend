@@ -1,41 +1,34 @@
-import {AnimationService} from './../../services/animation/animation.service';
-import {IconService} from './../../services/icon/icon.service';
 import {Component, OnInit, HostListener} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
 import {Post} from '../../models/post';
 import {TokenService} from '../../services/token/token.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-home',
-    templateUrl: 'home.component.html',
-    styleUrls: ['home.component.scss']
+    templateUrl: 'home.component.html'
 })
 export class HomeComponent implements OnInit {
 
     posts: [Post];
-    error: string;
-    errorCode: string;
-    page;
+    page: number;
     hasMore: boolean;
     loading: boolean;
 
     constructor(private route: ActivatedRoute,
                 private apiService: ApiService,
                 private tokenService: TokenService,
-                private animationService: AnimationService,
-                private iconService: IconService) 
-                {
+                private toastr: ToastrService) {
     }
 
     ngOnInit() {
         const response = this.route.snapshot.data['posts'];
-
         if (typeof response !== 'undefined') {
             if (response.code !== 0) {
-                this.error = response.message;
+                this.toastr.error('An unexpected error occurred');
             } else if (response == null) {
-                this.error = 'No posts were found.';
+                this.toastr.error('No posts were found');
             } else if (response.data.posts.length > 0) {
                 this.posts = response.data.posts;
                 this.hasMore = response.data.has_more;
@@ -46,17 +39,19 @@ export class HomeComponent implements OnInit {
 
     loadMorePosts() {
         this.loading = true;
-        let token = this.tokenService.getToken();
+        const token = this.tokenService.getToken();
 
         this.apiService.getPosts(10, ++this.page, token).subscribe((res) => {
             if (res.code !== 0) {
-                this.error = res.message;
+                this.toastr.error('An unexpected error occurred');
                 this.hasMore = false;
                 this.loading = false;
             } else if (res.data.posts.length > 0) {
-                this.posts.push(...res.data.posts);
-                this.hasMore = res.data.has_more;
-                this.loading = false;
+                setTimeout(() => {
+                    this.posts.push(...res.data.posts);
+                    this.hasMore = res.data.has_more;
+                    this.loading = false;
+                }, 1000);
             }
         });
     }
@@ -77,12 +72,12 @@ export class HomeComponent implements OnInit {
     upvotePost(index): void {
         const token = this.tokenService.getToken();
         const post = this.posts[index];
-        
+
         this.apiService.upvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
             post.my_vote = res.data.my_vote;
         }, () => {
-            alert('You need to be a registered user in order to upvote.');
+            this.toastr.info('You need to be a registered user in order to upvote.');
         });
     }
 
@@ -90,12 +85,12 @@ export class HomeComponent implements OnInit {
         const token = this.tokenService.getToken();
 
         const post = this.posts[index];
-        
+
         this.apiService.downvotePost(post.id, token).subscribe((res) => {
             post.karma = res.data.karma;
             post.my_vote = res.data.my_vote;
         }, () => {
-            alert('You need to be a registered user with at least 50 karma in order to downvote.');
+            this.toastr.info('You need to be a registered user with at least 50 karma in order to downvote.');
         });
     }
 }

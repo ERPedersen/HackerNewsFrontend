@@ -1,152 +1,133 @@
 <app-nav></app-nav>
-<div class="section-signup">
+
+<div class="page">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-
-                <div class="page-header">
-                    <h1>Sign up</h1>
-                </div>
-
-                <p class="form-introduction">
-                    Signing up as a user gives you access to member retricted features. Members can post stories,
-                    engage in discussions with the community and much more. <br>
-                    <a routerLink="/login" href="#">Already signed up? Click here to go to the login page.</a>
+            <div class="col-md-12">
+                <h1 class="page__heading">
+                    Sign up for Hacker News
+                </h1>
+                <p class="page__paragraph">
+                    Signing up as a user gives you access to member retricted features. Members can post stories, engage in discussions with the community and much more.
+                    <a routerLink="/login">Already signed up? Click here to go to the login page</a>.
                 </p>
-
-                <div *ngIf="error !== null" class="alert alert-danger">
-                    {{error}}
-                </div>
-
-                <form (ngSubmit)="onSubmit()" #signUpForm="ngForm" class="form-content">
-
-                    <div class="form-fields">
-
-                        <div class="form-item">
+                <form (ngSubmit)="signUp()" #signUpForm="ngForm" autocomplete="off" role="presentation">
+                    <div class="page__form">
+                        <div class="form__divider">
+                            Email
+                            <span class="form__required">*</span>
+                        </div>
+                        <div class="form__group">
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="alias" class="form-label">
-                                        Email
-                                        <span class="form-required">*</span>
-                                    </label>
-                                </div>
                                 <div class="col-sm-6">
-                                    <p class="form-label-description">
-                                        You will be using this e-mail address to
-                                        login to your account on this website. Your e-mail
-                                        address will not be publicly visible.
+                                    <p class="form__input-description">
+                                        You will be using this e-mail address to login to your account on this website. Your e-mail address will not be publicly visible.
                                     </p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input [(ngModel)]="user.email" #email="ngModel" name="email" required
-                                               id="email" placeholder="Email" type="email" class="form-control"
-                                               autocomplete="off"
-                                               pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'>
-                                        <div *ngIf="email.invalid && email.dirty && email.touched"
-                                             class="form-errors">
-                                            <span *ngIf="email.errors.required" class="help-block has-error">
-                                                You must provide an email.
+                                    <input [(ngModel)]="signUpUser.email"
+                                           #email="ngModel"
+                                           name="email"
+                                           required="required"
+                                           type="email"
+                                           class="form__input"
+                                           placeholder="john.doe@example.com"
+                                           autocomplete="off"
+                                           autofocus
+                                           pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'/>
+                                    <div *ngIf="email.invalid && email.dirty && email.touched"
+                                         class="form__input-errors">
+                                            <span *ngIf="email.errors.required" class="form__input-error">
+                                                You must provide an email
                                             </span>
-                                            <span *ngIf="email.errors.pattern" class="help-block has-error">
-                                                You must provide a valid email.
+                                        <span *ngIf="email.errors.pattern" class="form__input-error">
+                                                You must provide a valid email
                                             </span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-item">
+                        <div class="form__divider">
+                            Alias
+                            <span class="form__required">*</span>
+                        </div>
+                        <div class="form__group">
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="alias" class="form-label">
-                                        Alias
-                                        <span class="form-required">*</span>
-                                    </label>
-                                </div>
                                 <div class="col-sm-6">
-                                    <p class="form-label-description">
-                                        Your alias is your public identity. An alias must contain at least 6 characters,
-                                        and can consist of any combination of letters and numbers.
+                                    <p class="form__input-description">
+                                        Your alias is your public identity. An alias must contain at least 6 characters, and can consist of any combination of letters and numbers.
                                     </p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input required minlength="3" [(ngModel)]="user.alias" #alias="ngModel"
-                                               name="alias" id="alias" placeholder="Alias" type="text"
-                                               class="form-control" pattern="^[a-zA-Z0-9]*$">
-                                        <div *ngIf="alias.invalid && alias.dirty && alias.touched"
-                                             class="form-errors">
-                                            <span *ngIf="alias.errors.required" class="help-block has-error">
-                                                You must provide an alias.
-                                            </span>
-                                            <span *ngIf="alias.errors.minlength" class="help-block has-error">
-                                                Your alias must be at least 3 characters long.
-                                            </span>
-                                            <span *ngIf="alias.errors.pattern" class="help-block has-error">
-                                                You alias must consist of only letters and numbers.
-                                            </span>
-                                        </div>
+                                    <input [(ngModel)]="signUpUser.alias"
+                                           #alias="ngModel"
+                                           name="alias"
+                                           required="required"
+                                           type="text"
+                                           class="form__input"
+                                           placeholder="JohnDoe42"
+                                           minlength="3"
+                                           autocomplete="off"
+                                           pattern="^[a-zA-Z0-9]*$"/>
+                                    <div *ngIf="alias.invalid && alias.dirty && alias.touched" class="form__input-errors">
+                                        <span *ngIf="alias.errors.required" class="form__input-error">
+                                            You must provide an alias.
+                                        </span>
+                                        <span *ngIf="alias.errors.minlength" class="form__input-error">
+                                            Your alias must be at least 3 characters long.
+                                        </span>
+                                        <span *ngIf="alias.errors.pattern" class="form__input-error">
+                                            You alias must consist of only letters and numbers.
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-item">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="alias" class="form-label">
-                                        Password
-                                        <span class="form-required">*</span>
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="form__divider">
+                            Password
+                            <span class="form__required">*</span>
+                        </div>
+                        <div class="form__group">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <p class="form-label-description">
-                                        Provide a password, that you will use to log in to with. Your password
-                                        must consist of at least 6 characters.
+                                    <p class="form__input-description">
+                                        Provide a password, that you will use to log in to with. Your password must consist of at least 6 characters.
                                     </p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input [(ngModel)]="user.password" type="password" #password="ngModel" required
-                                               minlength="6" id="password" name="password" title="Password"
-                                               placeholder="Password" class="form-control">
-                                        <div *ngIf="password.invalid && password.dirty && password.touched"
-                                             class="form-errors">
-                                            <span *ngIf="password.errors.required" class="help-block has-error">
-                                                You must provide a password.
-                                            </span>
-                                            <span *ngIf="password.errors.minlength" class="help-block has-error">
-                                                Your password must be at least 6 characters long.
-                                            </span>
-                                        </div>
+                                    <input [(ngModel)]="signUpUser.password"
+                                           #password="ngModel"
+                                           name="password"
+                                           required="required"
+                                           type="password"
+                                           class="form__input"
+                                           placeholder="test1234"
+                                           autocomplete="new-password"
+                                           minlength="6"/>
+                                    <div *ngIf="password.invalid && password.dirty && password.touched" class="form__input-errors">
+                                        <span *ngIf="password.errors.required" class="form__input-error">
+                                            You must provide an email
+                                        </span>
+                                        <span *ngIf="password.errors.minlength" class="form__input-error">
+                                            Your password must be at least 6 characters long.
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="form__disclaimer">
+                            By clicking Sign Up you agree to our <a href="#">Terms of Service</a>, and that you have read our <a href="#">Data and Cookie Policy</a>.
+                        </div>
+                        <div class="form__submit">
+                            <button class="form__button" type="submit" [disabled]="loading || !signUpForm.form.valid">Sign in</button>
+                        </div>
+                        <div class="form__notice">
+                            Fields marked with
+                            <span class="form__required">*</span>
+                            are required fields
+                        </div>
                     </div>
-
-                    <div class="form-disclaimer">
-                        By clicking <u>Sign Up</u> you agree to our terms of service, and that you have
-                        read our data policy, including our cookie usage.
-                    </div>
-
-                    <div class="form-group">
-                        <button [disabled]="loading || !signUpForm.form.valid" type="submit" class="btn btn-secondary">
-                            <span *ngIf="!loading">Sign up</span>
-                            <span *ngIf="loading"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
-                        </button>
-                    </div>
-
-                    <div class="form-descriptor">
-                        Fields marked with <span class="form-required">*</span> are required fields
-                    </div>
-
                 </form>
-
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700');
 @import "colors";
+
+$brand-primary: $color-primary;
 
 $font-size-h1: 26px;
 $font-size-h2: 22px;
@@ -9,20 +10,11 @@ $font-size-h5: 14px;
 $font-size-h6: 12px;
 $headings-font-weight: 600;
 
-$font-family-base: "Open Sans", Helvetica, Arial, sans-serif;
-
-$navbar-inverse-bg: $color-primary;
-$navbar-inverse-color: $color-white;
-
-$navbar-inverse-brand-color: $color-white;
-$navbar-inverse-link-color: $color-white;
-
-$navbar-inverse-link-active-bg: $color-primary-dark;
-$navbar-inverse-link-hover-bg: $color-primary-dark;
-$navbar-inverse-link-active-color: $color-white;
-$navbar-inverse-link-hover-color: $color-white;
-
-$navbar-inverse-toggle-border-color: $color-primary;
-$navbar-inverse-toggle-hover-bg: $color-primary-dark;
+$font-family-base: "Roboto", Helvetica, Arial, sans-serif;
 
 $navbar-inverse-border: 0px;
+
+$link-color: $color-primary;
+$text-color: $color-white;
+$link-hover-decoration: none;
+$border-radius-base: 0;

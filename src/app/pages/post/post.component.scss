@@ -28,7 +28,7 @@ ul.post-meta {
         display: inline-block;
 
         .karma-icon {
-            color: $color-secondary;
+            color: $color-primary;
         }
 
         .karma, .author {
@@ -67,7 +67,7 @@ ul.post-meta {
         @include alert-variant(lighten($gray-lighter, 3%), darken($gray-lighter, 3%), $text-color);
 
         a {
-            color: $color-secondary;
+            color: $color-primary;
         }
     }
 
@@ -100,7 +100,7 @@ ul.post-meta {
             display: inline-block;
 
             .karma-icon {
-                color: $color-secondary;
+                color: $color-primary;
             }
 
             .karma, .author {
@@ -131,7 +131,7 @@ ul.post-meta {
         cursor: pointer;
 
         &.is-active {
-            color: $color-secondary;
+            color: $color-primary;
         }
     }
 }
