@@ -28,7 +28,7 @@ export class ApiService {
 
     getPosts(limit, page, token): Observable<any> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.get(this.apiUrl + `/posts?limit=10&page=${page}`, {headers});
+        return this.http.get(this.apiUrl + `/posts?limit=${limit}&page=${page}`, {headers});
     }
 
     getPost(slug: string, token): Observable<any> {

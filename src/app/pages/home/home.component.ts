@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
         this.loading = true;
         const token = this.tokenService.getToken();
 
-        this.apiService.getPosts(10, ++this.page, token).subscribe((res) => {
+        this.apiService.getPosts(30, ++this.page, token).subscribe((res) => {
             if (res.code !== 0) {
                 this.toastr.error('An unexpected error occurred');
                 this.hasMore = false;
