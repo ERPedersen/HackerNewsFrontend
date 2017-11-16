@@ -18,7 +18,7 @@ import {AuthGuard} from './guards/auth.guard';
 import {UserGuard} from './guards/user.guard';
 import {PostsResolver} from './resolvers/posts/posts-resolver';
 import {RouteConf} from './routes';
-import {APP_BASE_HREF} from '@angular/common';
+import {APP_BASE_HREF, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {SignUpComponent} from './pages/sign-up/sign-up.component';
 import {TokenService} from './services/token/token.service';
 import {PostComponent} from './pages/post/post.component';
@@ -69,6 +69,7 @@ export const GlobalModules = {
         PostsResolver,
         PostResolver,
         AnimationService,
-        {provide: APP_BASE_HREF, useValue: '/'}
+        {provide: APP_BASE_HREF, useValue: '/'},
+        {provide: LocationStrategy, useClass: HashLocationStrategy}
     ]
 };
