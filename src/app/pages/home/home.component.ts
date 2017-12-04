@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
             } else if (response.data.posts.length > 0) {
                 this.posts = response.data.posts;
                 this.hasMore = response.data.has_more;
-                this.page = 1;
+                this.page = response.data.last_id;
             }
         }
     }
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
         this.loading = true;
         const token = this.tokenService.getToken();
 
-        this.apiService.getPosts(30, ++this.page, token).subscribe((res) => {
+        this.apiService.getPosts(30, this.page, token).subscribe((res) => {
             if (res.code !== 0) {
                 this.toastr.error('An unexpected error occurred');
                 this.hasMore = false;
@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit {
                 setTimeout(() => {
                     this.posts.push(...res.data.posts);
                     this.hasMore = res.data.has_more;
+                    this.page = res.data.last_id;
                     this.loading = false;
                 }, 1000);
             }

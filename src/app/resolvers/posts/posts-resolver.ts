@@ -12,6 +12,6 @@ export class PostsResolver implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<boolean> {
         let token = this.tokenService.getToken();
-        return this.apiService.getPosts(30, 1, token);
+        return this.apiService.getPosts(30, -1, token);
     }
 }
